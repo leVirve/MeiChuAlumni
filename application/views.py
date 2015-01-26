@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 views.py
 
@@ -17,8 +18,8 @@ from flask_cache import Cache
 
 from application import app
 from decorators import login_required, admin_required
-from forms import ExampleForm
-from models import ExampleModel
+from forms import MessageForm
+from models import MessageModel
 
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -26,7 +27,7 @@ cache = Cache(app)
 
 
 def home():
-    return redirect(url_for('list_examples'))
+    return redirect(url_for('list_messages'))
 
 
 def say_hello(username):
@@ -34,54 +35,63 @@ def say_hello(username):
     return 'Hello %s' % username
 
 
-@login_required
-def list_examples():
-    """List all examples"""
-    examples = ExampleModel.query()
-    form = ExampleForm()
+# @login_required
+def list_messages():
+    """List all massages"""
+    messages = MessageModel.query()
+    form = MessageForm()
     if form.validate_on_submit():
-        example = ExampleModel(
-            example_name=form.example_name.data,
-            example_description=form.example_description.data,
-            added_by=users.get_current_user()
+        message = MessageModel(
+            name=form.name.data,
+            school=form.school.data,
+            department=form.department.data,
+            phone=form.phone.data,
+            mail=form.mail.data,
+            #shared
+            description=form.description.data,
         )
+        """ Check for duplicate  """
+        query = MessageModel.query(MessageModel.phone==message.phone)
+        if query:
+            flash(u'你已經填過囉！', 'info')
+            return redirect(url_for('list_messages'), 302)
         try:
-            example.put()
-            example_id = example.key.id()
-            flash(u'Example %s successfully saved.' % example_id, 'success')
-            return redirect(url_for('list_examples'))
+            message.put()
+            message_id = message.key.id()
+            flash(u'Message %s successfully saved.' % message_id, 'success')
+            return redirect(url_for('list_messages'), 302)
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
-            return redirect(url_for('list_examples'))
-    return render_template('list_examples.html', examples=examples, form=form)
+            return redirect(url_for('list_messages'))
+    return render_template('list_messages.html', messages=messages, form=form)
 
 
 @login_required
-def edit_example(example_id):
-    example = ExampleModel.get_by_id(example_id)
-    form = ExampleForm(obj=example)
+def edit_message(message_id):
+    message = MessageModel.get_by_id(message_id)
+    form = MessageForm(obj=message)
     if request.method == "POST":
         if form.validate_on_submit():
-            example.example_name = form.data.get('example_name')
-            example.example_description = form.data.get('example_description')
-            example.put()
-            flash(u'Example %s successfully saved.' % example_id, 'success')
-            return redirect(url_for('list_examples'))
-    return render_template('edit_example.html', example=example, form=form)
+            # example.example_name = form.data.get('example_name')
+            # example.example_description = form.data.get('example_description')
+            # example.put()
+            flash(u'Message %s successfully saved.(Test Not Really)' % message_id, 'success')
+            return redirect(url_for('list_messages'))
+    return render_template('edit_message.html', message=message, form=form)
 
 
 @login_required
-def delete_example(example_id):
-    """Delete an example object"""
-    example = ExampleModel.get_by_id(example_id)
+def delete_message(message_id):
+    """Delete an message object"""
+    message = MessageModel.get_by_id(message_id)
     if request.method == "POST":
         try:
-            example.key.delete()
-            flash(u'Example %s successfully deleted.' % example_id, 'success')
-            return redirect(url_for('list_examples'))
+            message.key.delete()
+            flash(u'Message %s successfully deleted.' % message_id, 'success')
+            return redirect(url_for('list_messages'))
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
-            return redirect(url_for('list_examples'))
+            return redirect(url_for('list_messages'))
 
 
 @admin_required
@@ -91,10 +101,10 @@ def admin_only():
 
 
 @cache.cached(timeout=60)
-def cached_examples():
+def cached_messages():
     """This view should be cached for 60 sec"""
-    examples = ExampleModel.query()
-    return render_template('list_examples_cached.html', examples=examples)
+    messages = MessageModel.query()
+    return render_template('list_messages_cached.html', messages=messages)
 
 
 def warmup():

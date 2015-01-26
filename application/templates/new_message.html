@@ -1,0 +1,112 @@
+<div class="modal fade" id="new-message-modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>祝福梅竹賽</h3>
+    </div>
+    <div class="modal-body">
+        <form id="new-message-form" class="well"
+            action="{{ url_for('list_messages') }}" method="post" accept-charset="utf-8">
+            <fieldset>
+                {{ form.hidden_tag() }}
+                <div class="control-group">
+                    <div class="control-label">{{ form.name.label }}</div>
+                    <div class="controls">
+                        {{ form.name|safe }}
+                        {% if form.name.errors %}
+                        <ul class="errors">
+                            {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="control-label">{{ form.school.label }}</div>
+                    <div class="controls">
+                        {{ form.school|safe }}
+                        {% if form.school.errors %}
+                        <ul class="errors">
+                            {% for error in form.school.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+			{% for subfield in form.school.choices %}
+			{% endfor %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="control-label">{{ form.department.label }}</div>
+                    <div class="controls">
+                        {{ form.department|safe }}
+                        {% if form.department.errors %}
+                        <ul class="errors">
+                            {% for error in form.department.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="control-label">{{ form.phone.label }}</div>
+                    <div class="controls">
+                        {{ form.phone|safe }}
+                        {% if form.phone.errors %}
+                        <ul class="errors">
+                            {% for error in form.phone.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="control-label">{{ form.mail.label }}</div>
+                    <div class="controls">
+                        {{ form.mail|safe }}
+                        {% if form.mail.errors %}
+                        <ul class="errors">
+                            {% for error in form.mail.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="control-label">{{ form.description.label }}</div>
+                    <div class="controls">
+                        {{ form.description|safe }}
+                        {% if form.description.errors %}
+                        <ul class="errors">
+                            {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input class="btn btn-primary" type="submit" value="送出"/>
+                        <button class="btn" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+
