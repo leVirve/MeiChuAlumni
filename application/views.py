@@ -30,12 +30,6 @@ def home():
     return redirect(url_for('list_messages'))
 
 
-def say_hello(username):
-    """Contrived example to demonstrate Flask's url routing capabilities"""
-    return 'Hello %s' % username
-
-
-# @login_required
 def list_messages():
     """List all massages"""
     messages = MessageModel.query()
@@ -47,24 +41,44 @@ def list_messages():
             department=form.department.data,
             phone=form.phone.data,
             mail=form.mail.data,
-            #shared
             description=form.description.data,
         )
         """ Check for duplicate  """
-        query = MessageModel.query(MessageModel.phone==message.phone)
-        if query:
-            flash(u'你已經填過囉！', 'info')
+        query = MessageModel.query(MessageModel.phone == message.phone)
+        if query.get():
+            flash(u'你已經填過囉', 'info')
             return redirect(url_for('list_messages'), 302)
         try:
             message.put()
             message_id = message.key.id()
-            flash(u'Message %s successfully saved.' % message_id, 'success')
-            return redirect(url_for('list_messages'), 302)
+            flash(u'%s' % message_id, 'share')
+            return redirect(url_for('update_message', message_id=message_id), 302)
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
             return redirect(url_for('list_messages'))
     return render_template('list_messages.html', messages=messages, form=form)
 
+
+def update_message(message_id):
+    messages = MessageModel.query()
+    message = MessageModel.get_by_id(message_id)
+    form = MessageForm(obj=message)
+    if request.method == "POST":
+        if not form.validate_csrf_token(form.csrf_token):
+            message.shared = True
+            message.put()
+            flash(u'Update share state', 'success')
+        #flash(u'value of my var is %s' % dir(form), 'info')
+        #flash(u'value of my var is %s' % form._fields, 'info')
+        #flash(u'value of my var is %s' % dir(form.validate_on_submit), 'info')
+        #import inspect
+        #flash(u'value of my var is %s' % inspect.getsource(form.validate_on_submit), 'info')
+        #flash(u'value of my var is %s' % message, 'info')
+        #flash(u'value of my var is %s' % form.data, 'info')
+        #flash(u'value of my var is %s' % form.validate_csrf_token(form.csrf_token), 'info')
+        #flash(u'value of my var is %s' % type(form._errors), 'info')
+        return redirect(url_for('list_messages'), 302)
+    return render_template('list_messages.html', messages=messages, form=form)
 
 @login_required
 def edit_message(message_id):

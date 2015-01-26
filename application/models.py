@@ -18,5 +18,4 @@ class MessageModel(ndb.Model):
     mail        = ndb.StringProperty(required=True)
     description = ndb.TextProperty(required=True)
     shared      = ndb.BooleanProperty(default=False)
-    # added_by    = ndb.UserProperty()
     timestamp   = ndb.DateTimeProperty(auto_now_add=True)

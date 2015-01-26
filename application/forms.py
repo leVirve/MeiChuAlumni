@@ -15,7 +15,16 @@ from wtforms.ext.appengine.ndb import model_form
 from .models import MessageModel
 
 
-MessageForm = model_form(MessageModel, wtf.Form, field_args={
+class ClassicMessageForm(wtf.Form):
+    name        = wtf.StringField(u'姓名', validators=[validators.Required()])
+    school      = wtf.RadioField(u'學校', choices=[('NTHU', u'清華大學'), ('NCTU', u'交通大學')],validators=[validators.Required()])
+    department  = wtf.StringField(u'系級', validators=[validators.Required()])
+    phone       = wtf.StringField(u'聯絡電話', validators=[validators.Required()])
+    mail        = wtf.StringField(u'聯絡信箱', validators=[validators.Required()])
+    description = wtf.TextAreaField(u'祝福', validators=[validators.Required()])
+
+
+MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
 # App Engine ndb model form
     'name': {
         'label': u'姓名',

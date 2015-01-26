@@ -42,12 +42,9 @@
         </a>
     </p>
 
-    <p>
-        <form id="website-share-form" class="well"
-            action="{{  }}">
-	    {{ form.hidden_tag() }}
-	</form>
-    </p>
+{% block share %}
+    {% include 'update_message.html' %}
+{% endblock share %}
 
 {% endblock content %}
 
