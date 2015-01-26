@@ -1,112 +1,44 @@
-<div class="modal fade" id="new-message-modal">
-    <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-        <button class="close" data-dismiss="modal">&times;</button>
-        <h3>祝福梅竹賽</h3>
+<div class="row">
+  <form id="new-message-form" class="col s12" action="{{ url_for('list_messages') }}" method="post" accept-charset="utf-8">
+    {{ form.hidden_tag() }}
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="name" type="text" class="validate" name="name">
+        <label for="name">姓名</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="phone" type="text" class="validate" name="phone">
+        <label for="phone">電話</label>
+      </div>
     </div>
-    <div class="modal-body">
-        <form id="new-message-form" class="well"
-            action="{{ url_for('list_messages') }}" method="post" accept-charset="utf-8">
-            <fieldset>
-                {{ form.hidden_tag() }}
-                <div class="control-group">
-                    <div class="control-label">{{ form.name.label }}</div>
-                    <div class="controls">
-                        {{ form.name|safe }}
-                        {% if form.name.errors %}
-                        <ul class="errors">
-                            {% for error in form.name.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="control-label">{{ form.school.label }}</div>
-                    <div class="controls">
-                        {{ form.school|safe }}
-                        {% if form.school.errors %}
-                        <ul class="errors">
-                            {% for error in form.school.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-			{% for subfield in form.school.choices %}
-			{% endfor %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="control-label">{{ form.department.label }}</div>
-                    <div class="controls">
-                        {{ form.department|safe }}
-                        {% if form.department.errors %}
-                        <ul class="errors">
-                            {% for error in form.department.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="control-label">{{ form.phone.label }}</div>
-                    <div class="controls">
-                        {{ form.phone|safe }}
-                        {% if form.phone.errors %}
-                        <ul class="errors">
-                            {% for error in form.phone.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="control-label">{{ form.mail.label }}</div>
-                    <div class="controls">
-                        {{ form.mail|safe }}
-                        {% if form.mail.errors %}
-                        <ul class="errors">
-                            {% for error in form.mail.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="control-label">{{ form.description.label }}</div>
-                    <div class="controls">
-                        {{ form.description|safe }}
-                        {% if form.description.errors %}
-                        <ul class="errors">
-                            {% for error in form.description.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>&nbsp;</div>
-                <div class="control-group">
-                    <div class="controls">
-                        <input class="btn btn-primary" type="submit" value="送出"/>
-                        <button class="btn" data-dismiss="modal">取消</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="nthu" type="radio" name="school" value="清華大學" class="validate">
+        <label for="nthu">清華大學</label>
+        <input id="nctu" type="radio" name="school" value="交通大學" class="validate">
+        <label for="nctu">交通大學</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="department" type="text" class="validate" name="department">
+        <label for="department">系級</label>
+      </div>
     </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="email" type="email" class="validate" name="mail">
+        <label for="email">聯絡信箱</label>
+      </div>
     </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea class="materialize-textarea" name="description"></textarea>
+        <label>祝福</label>
+      </div>
     </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">送出
+      	<i class="mdi-content-send right"></i>
+      </button>
+    </div>
+  </form>
 </div>
-
-

@@ -43,11 +43,6 @@ def list_messages():
             mail=form.mail.data,
             description=form.description.data,
         )
-        """ Check for duplicate  """
-        query = MessageModel.query(MessageModel.phone == message.phone)
-        if query.get():
-            flash(u'你已經填過囉', 'info')
-            return redirect(url_for('list_messages'), 302)
         try:
             message.put()
             message_id = message.key.id()
@@ -56,7 +51,7 @@ def list_messages():
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
             return redirect(url_for('list_messages'))
-    return render_template('list_messages.html', messages=messages, form=form)
+    return render_template('base.html', messages=messages, form=form)
 
 
 def update_message(message_id):
@@ -68,15 +63,6 @@ def update_message(message_id):
             message.shared = True
             message.put()
             flash(u'Update share state', 'success')
-        #flash(u'value of my var is %s' % dir(form), 'info')
-        #flash(u'value of my var is %s' % form._fields, 'info')
-        #flash(u'value of my var is %s' % dir(form.validate_on_submit), 'info')
-        #import inspect
-        #flash(u'value of my var is %s' % inspect.getsource(form.validate_on_submit), 'info')
-        #flash(u'value of my var is %s' % message, 'info')
-        #flash(u'value of my var is %s' % form.data, 'info')
-        #flash(u'value of my var is %s' % form.validate_csrf_token(form.csrf_token), 'info')
-        #flash(u'value of my var is %s' % type(form._errors), 'info')
         return redirect(url_for('list_messages'), 302)
     return render_template('list_messages.html', messages=messages, form=form)
 
