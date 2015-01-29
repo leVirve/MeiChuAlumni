@@ -10,6 +10,12 @@
   <meta name="description" content="梅竹賽五倍祝福">
   <meta name="keywords" content="梅竹, 梅竹賽, 清大, 交大, 清交梅竹賽, 乙未梅竹">
   <meta name="author" content="Salas">
+  <meta property="og:url" content="http://appspot" />
+  <meta property="og:title" content="梅竹賽五倍祝福" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="到底行不行啊!官方文件在騙我吧???" />
+  <meta property="og:image" content="http://media.urbandictionary.com/image/page/wtf-44339.jpg" />
+
   <title>梅竹賽五倍祝福</title>
   <link rel="shortcut icon" href="/static/img/favicon.ico">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/{{ bootstrap_version }}/css/bootstrap.min.css" rel="stylesheet">
@@ -27,109 +33,73 @@
     {% include 'includes/nav.html' %} {# pull in navbar #}
     <div class="tab-content">
       <section class="tab-pane fade in active" id="home">
-        <div class="row" style="background:#555;">
-          <div class="col s2">
-            <div id="outer">
-              <div id="inner">
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div class="col s4">
-            <img src="http://castnet.nctu.edu.tw/files/images_db/253/20100308024629.jpg">
-            <a id="go" class="waves-effect waves-light btn-large">為熊貓集氣</a>
-          </div>
-          <div class="col s4">
-            <img src="http://www.pac.nctu.edu.tw/files/enews//html/2012/113/images/113/8.jpg">
-            <a id="go2" class="waves-effect waves-light btn-large">為狐狸集氣</a>
-          </div>
-          <div class="col s2">
-            <div id="outer">
-              <div id="inner">
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+        {% include 'main_page.html' %}
       </section>
       <section class="tab-pane fade" id="content">
-        <p>content</p>
+        {% include 'content.html' %}
       </section>
       <section class="tab-pane fade" id="blessing" style="background:#555;">
-	{% include 'includes/flash_message.html' %}
+        {% include 'includes/flash_message.html' %}
         {% include 'new_message.html' %}
-
-        <ul class="cbp_tmtimeline">
-          {% for message in messages %}
-          {% set message_id = message.key.id() %}
-          <li>
-              <time class="cbp_tmtime" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
-                <span>{{ message.timestamp.strftime('%b %d, %Y') }}</span>
-                <span>{{ message.timestamp.strftime('%I:%M %p') }}</span>
-              </time>
-              <div class="cbp_tmicon"></div>
-              <div class="cbp_tmlabel">
-              <blockquote>
-                  <p>{{ message.description|safe }}</p>
-                  <small>{{ message.school|safe }} | {{ message.department|safe }}</small>
-              </blockquote>
-              </div>
-          </li>
-          {% else %}
-          <p>還沒有祝福QQ</p>
-          {% endfor %}
-        </ul>
+        {% include 'list_messages.html' %}
       </section>
     </div><!-- /content -->
   </div><!-- /tabs -->
 
-  <footer class="page-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Footer Content</h5>
-          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-          <ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      © 2014 Copyright Text
-      <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-      </div>
-    </div>
-  </footer>
+  {% include 'includes/footer.html' %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ jquery_version }}/jquery.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/{{ bootstrap_version }}/js/bootstrap.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
-  {% block tail_script %}{# defer-capable JS block #}{% endblock %}
-  {{ profiler_includes|safe }}
+  {% block tail_script %}
   <script>
-    $('#go').click(function(ev) {
-      ev.preventDefault();
-      $('#tabview a[href="#blessing"]').tab('show')
-    });
-   $(function(){
-      $('#new-message-form').submit(function(){
-      $.post($(this).attr('action'), $(this).serialize(), function(json) {
-        console.log(json);
-      }, 'json');
-      return false;
-    });
-});
-
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '372111882968567',
+        version: 'v2.2',
+        cookie: true,
+        status: true,
+        xfbml: true
+      });
+    };
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/zh_TW/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
   </script>
+  <script>
+    $(function(){
+      $('#go').click(function(ev) {
+        ev.preventDefault();
+        $('#tabview a[href="#blessing"]').tab('show')
+      });
+      $('#new-message-form').submit(function(){
+        console.log('in');
+        $.post($(this).attr('action'), $(this).serialize(), function(d) {
+          show_share(d.mid);
+        }, 'json');
+        return false;
+      });
+    });
+    function show_share(d) {
+      FB.ui({
+        method: 'feed',
+        link: window.location.href,
+      },
+      function(response) {
+        if (response && response.post_id) {
+          $.post("{{ url_for('update_message') }}", {'c':response.post_id}, function(dd) {
+            console.log(dd);
+          });
+        }
+      });
+      location.reload();
+    }
+  </script>
+  {% endblock %}
+  {{ profiler_includes|safe }}
 </body>
 </html>

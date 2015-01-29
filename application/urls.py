@@ -25,7 +25,7 @@ app.add_url_rule('/blessings', 'list_messages', view_func=views.list_messages, m
 app.add_url_rule('/blessings/cached', 'cached_messages', view_func=views.cached_messages, methods=['GET'])
 
 # After leaving messages, visitor will receive a share button
-app.add_url_rule('/blessings/<int:message_id>', view_func=views.update_message, methods=['GET', 'POST'])
+app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['GET', 'POST'])
 
 # Contrived admin-only view
 app.add_url_rule('/admin_only', 'admin_only', view_func=views.admin_only)

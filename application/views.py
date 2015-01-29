@@ -54,12 +54,13 @@ def list_messages():
     return render_template('base.html', messages=messages, form=form)
 
 
-def update_message(message_id):
+def update_message():
+    message_id = request.data.c
     messages = MessageModel.query()
     message = MessageModel.get_by_id(message_id)
     form = MessageForm(obj=message)
     if request.method == "POST":
-        if not form.validate_csrf_token(form.csrf_token):
+        if message and request.cookies:
             message.shared = True
             message.put()
             flash(u'Update share state', 'success')
