@@ -12,7 +12,7 @@ For example the *say_hello* handler, handling the URL route '/hello/<username>',
 from google.appengine.api import users
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 
-from flask import request, render_template, flash, url_for, redirect
+from flask import request, render_template, flash, url_for, redirect, jsonify
 
 from flask_cache import Cache
 
@@ -46,8 +46,8 @@ def list_messages():
         try:
             message.put()
             message_id = message.key.id()
-            flash(u'%s' % message_id, 'share')
-            return redirect(url_for('update_message', message_id=message_id), 302)
+            flash(u'Success', 'success') # if not return redirect, till next refresh will see.
+            return jsonify(mid=message_id)
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
             return redirect(url_for('list_messages'))
