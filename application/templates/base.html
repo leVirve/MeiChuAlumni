@@ -77,7 +77,6 @@
         $('#tabview a[href="#blessing"]').tab('show')
       });
       $('#new-message-form').submit(function(){
-        console.log('in');
         $.post($(this).attr('action'), $(this).serialize(), function(d) {
           show_share(d.mid);
         }, 'json');
@@ -85,18 +84,24 @@
       });
     });
     function show_share(d) {
+      console.log(d);
+      $.post("{{ url_for('update_message') }}", {'c':'test_id','d':d},
+        function(dd) {
+          console.log(dd);
+          // location.reload();
+      });
+    }
+    function __show_share(d) {
       FB.ui({
         method: 'feed',
         link: window.location.href,
       },
       function(response) {
         if (response && response.post_id) {
-          $.post("{{ url_for('update_message') }}", {'c':response.post_id}, function(dd) {
-            console.log(dd);
-          });
+          $.post("{{ url_for('update_message') }}", {'c':response.post_id,'d':d});
         }
+        location.reload();
       });
-      location.reload();
     }
   </script>
   {% endblock %}

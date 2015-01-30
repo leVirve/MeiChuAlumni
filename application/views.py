@@ -55,17 +55,14 @@ def list_messages():
 
 
 def update_message():
-    message_id = request.data.c
-    messages = MessageModel.query()
-    message = MessageModel.get_by_id(message_id)
-    form = MessageForm(obj=message)
     if request.method == "POST":
-        if message and request.cookies:
+        message_id = int(request.form.get('d'))
+        message = MessageModel.get_by_id(message_id)
+        if message and request.form.get('c'):
             message.shared = True
             message.put()
-            flash(u'Update share state', 'success')
-        return redirect(url_for('list_messages'), 302)
-    return render_template('list_messages.html', messages=messages, form=form)
+            flash(u'Share success', 'success')
+        return redirect(url_for('list_messages'))
 
 @login_required
 def edit_message(message_id):
