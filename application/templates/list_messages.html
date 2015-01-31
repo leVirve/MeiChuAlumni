@@ -1,20 +1,26 @@
 <ul class="cbp_tmtimeline">
   {% for message in messages %}
   {% set message_id = message.key.id() %}
-  <li>
-      <time class="cbp_tmtime" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
+  <li class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+
+      <time class="col s2" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
         <span>{{ message.timestamp.strftime('%b %d, %Y') }}</span>
         <span>{{ message.timestamp.strftime('%I:%M %p') }}</span>
       </time>
+
       <div class="cbp_tmicon"></div>
-      <div class="cbp_tmlabel">
-      <blockquote>
-          <p>{{ message.description|safe }}</p>
-          <small>{{ message.school|safe }} | {{ message.department|safe }}</small>
-      </blockquote>
+
+      <div class="col s10">
+        <span class="black-text flow-text">
+            <p>{{ message.description|e }}</p>
+            <small>{{ message.school|e }} | {{ message.department|e }}</small>
+        </span>
       </div>
+
+    </div>
   </li>
   {% else %}
-  <p>還沒有祝福QQ</p>
+  <p>還沒有祝福 QQ</p>
   {% endfor %}
 </ul>

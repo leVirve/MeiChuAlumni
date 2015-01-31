@@ -32,7 +32,7 @@ def home():
 
 def list_messages():
     """List all massages"""
-    messages = MessageModel.query()
+    messages = MessageModel.query().order(-MessageModel.timestamp)
     form = MessageForm()
     if form.validate_on_submit():
         message = MessageModel(
@@ -62,7 +62,7 @@ def update_message():
             message.shared = True
             message.put()
             flash(u'Share success', 'success')
-        return redirect(url_for('list_messages'))
+            return redirect(url_for('list_messages'), 302)
 
 @login_required
 def edit_message(message_id):

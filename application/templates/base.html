@@ -18,30 +18,34 @@
 
   <title>梅竹賽五倍祝福</title>
   <link rel="shortcut icon" href="/static/img/favicon.ico">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/{{ bootstrap_version }}/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/materialize.min.css" rel="stylesheet">
   <link href="/static/css/messageline.css" rel="stylesheet">
   <link href="/static/css/demo.css" rel="stylesheet">
-  {% block style_block %}{# page-specific CSS #}{% endblock %}
-  {% block head_script %}{# defer-incapable JS block #}{% endblock %}
 </head>
 <body>
-  <header class="codrops-header bg">
-    <h1>梅竹賽五倍祝福 <span>梅竹餘韻猶未已，乙未復興奏昇平。</span></h1>
-  </header>
-  <div class="tabs-style-underline">
-    {% include 'includes/nav.html' %} {# pull in navbar #}
-    <div class="tab-content">
-      <section class="tab-pane fade in active" id="home">
+
+  {% include 'includes/nav.html' %} {# pull in navbar #}
+  <div class="wrap">
+
+    <div class="t-content">
+      <section id="home">
         {% include 'main_page.html' %}
       </section>
-      <section class="tab-pane fade" id="content">
-        {% include 'content.html' %}
+      <section id="content">
+        <div class="row">
+          <div class="col offset-m2 offset-l2 s12 m8 l8">
+          {% include 'content.html' %}
+          </div>
+        </div>
       </section>
-      <section class="tab-pane fade" id="blessing" style="background:#555;">
-        {% include 'includes/flash_message.html' %}
-        {% include 'new_message.html' %}
-        {% include 'list_messages.html' %}
+      <section id="blessing">
+        <div class="row">
+          <div class="col offset-m2 offset-l2 s12 m8 l8">
+          {% include 'includes/flash_message.html' %}
+          {% include 'form.html' %}
+          {% include 'list_messages.html' %}
+          </div>
+        </div>
       </section>
     </div><!-- /content -->
   </div><!-- /tabs -->
@@ -49,7 +53,6 @@
   {% include 'includes/footer.html' %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ jquery_version }}/jquery.min.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/{{ bootstrap_version }}/js/bootstrap.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
   {% block tail_script %}
   <script>
@@ -72,37 +75,41 @@
   </script>
   <script>
     $(function(){
-      $('#go').click(function(ev) {
+      $('#go4nthu').click(function(ev) {
         ev.preventDefault();
-        $('#tabview a[href="#blessing"]').tab('show')
+        $('ul.tabs').tabs('select_tab', 'blessing');
+      });
+      $('#go4nctu').click(function(ev) {
+        ev.preventDefault();
+        $('ul.tabs').tabs('select_tab', 'blessing');
       });
       $('#new-message-form').submit(function(){
         $.post($(this).attr('action'), $(this).serialize(), function(d) {
-          show_share(d.mid);
+          var b = document.createElement('button');
+          b.innerHTML = '分享';
+          b.className = 'btn waves-effect waves-light right';
+          b.onclick = function() {
+            FB.ui({
+              method: 'feed',
+              link: window.location.href,
+            },
+            function(response) {
+              if (response && response.post_id) {
+                $.post("{{ url_for('update_message') }}", {'c':response.post_id},
+                  function(dd) {
+                  console.log(dd);}
+                );
+              }
+            });
+            location.reload();
+          }
+          $('#somewhere').append(b);
+          $('#new-message-form')[0].remove();
         }, 'json');
         return false;
       });
     });
-    function show_share(d) {
-      console.log(d);
-      $.post("{{ url_for('update_message') }}", {'c':'test_id','d':d},
-        function(dd) {
-          console.log(dd);
-          // location.reload();
-      });
-    }
-    function __show_share(d) {
-      FB.ui({
-        method: 'feed',
-        link: window.location.href,
-      },
-      function(response) {
-        if (response && response.post_id) {
-          $.post("{{ url_for('update_message') }}", {'c':response.post_id,'d':d});
-        }
-        location.reload();
-      });
-    }
+
   </script>
   {% endblock %}
   {{ profiler_includes|safe }}

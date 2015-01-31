@@ -1,12 +1,32 @@
-nav ul > li a {
-	height: 64px;
-	font-size: 1.75em;
+body {
+    background: #EDEDED;
 }
 
-#outer {
-    width: 84px;
-    height: 600px;
-    border: 2px solid #ccc;
+#header h1 {
+    margin: 0;
+}
+
+#nav ul > li a {
+    font-size: 1.75em;
+}
+
+.wrap {
+    margin-top: 20px;
+}
+
+.life-bar {
+    height: 50px;
+    background-color: red;
+}
+
+.life-bar .determinate {
+    background-color: orange;
+}
+
+.outer {
+    width: 100px;
+    height: 800px;
+    border: 2px solid red;
     overflow: hidden;
 
     position: relative;
@@ -16,23 +36,23 @@ nav ul > li a {
     border-radius: 4px;
 }
 
-#inner, #inner div {
+.inner, .inner div {
     width: 100%;
     overflow: hidden;
     left: -2px;
     position: absolute;
 }
 
-#inner {
+.inner {
     border: 2px solid #999;
     border-top-width: 0;
-    background-color: #999;
+    background-color: purple;
 
     bottom: 0;
     height: 20%;
 }
 
-#inner div {
+.inner div {
     border: 2px solid orange;
     border-bottom-width: 0;
     background-color: orange;

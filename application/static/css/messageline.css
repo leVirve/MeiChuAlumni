@@ -12,9 +12,10 @@
     top: 0;
     bottom: 0;
     width: 10px;
-    background: #afdcf8;
+    background: #ff1744;
     left: 20%;
-    margin-left: -10px;
+    margin-left: -20px;
+    z-index: 9;
 }
 
 .cbp_tmtimeline > li {
@@ -100,8 +101,8 @@
 
 /* The icons */
 .cbp_tmtimeline > li .cbp_tmicon {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     font-family: 'ecoico';
     speak: none;
     font-style: normal;
@@ -113,13 +114,14 @@
     -webkit-font-smoothing: antialiased;
     position: absolute;
     color: #fff;
-    background: #46a4da;
+    background: #ff1744;
     border-radius: 50%;
-    box-shadow: 0 0 0 8px #afdcf8;
+    box-shadow: 0 0 0 5px #f48fb1;
     text-align: center;
     left: 20%;
-    top: 0;
+    top: 10%;
     margin: 0 0 0 -25px;
+    z-index: 19;
 }
 
 /* Example Media Queries */

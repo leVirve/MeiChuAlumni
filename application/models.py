@@ -19,3 +19,15 @@ class MessageModel(ndb.Model):
     description = ndb.TextProperty(required=True)
     shared      = ndb.BooleanProperty(default=False)
     timestamp   = ndb.DateTimeProperty(auto_now_add=True)
+
+
+class User(ndb.Model):
+    """ User Model """
+    name        = ndb.StringProperty()
+    school      = ndb.StringProperty()
+    department  = ndb.StringProperty()
+    phone       = ndb.IntegerProperty()
+    mail        = ndb.StringProperty()
+    shared      = ndb.BooleanProperty()
+    timestamp   = ndb.DateTimeProperty(auto_now_add=True)
+
