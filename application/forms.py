@@ -35,7 +35,7 @@ MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
         'label': u'學校',
         'description': u'NTHU / NCTU',
 	'choices': [(u'清華大學'), (u'交通大學')],
-        'validators': [validators.Required()]
+        'validators': [validators.Required(), validators.AnyOf([(u'清華大學'), (u'交通大學')])]
     },
     'department': {
         'label': u'系級',
@@ -50,7 +50,7 @@ MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
     'mail': {
         'label': u'聯絡信箱',
         'description': u'聯絡必要資料',
-        'validators': [validators.Required()]
+        'validators': [validators.Required(), validators.Email()]
     },
     'description': {
         'label': u'祝福的話',
@@ -58,3 +58,4 @@ MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
         'validators': [validators.Required()]
     },
 })
+

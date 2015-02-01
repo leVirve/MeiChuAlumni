@@ -19,7 +19,7 @@ from flask_cache import Cache
 from application import app
 from decorators import login_required, admin_required
 from forms import MessageForm
-from models import MessageModel
+from models import MessageModel, User
 
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -34,48 +34,55 @@ def list_messages():
     """List all massages"""
     messages = MessageModel.query().order(-MessageModel.timestamp)
     form = MessageForm()
+    return render_template('base.html', messages=messages, form=form)
+
+
+def new_message():
+    """ New message into database """
+    form = MessageForm()
     if form.validate_on_submit():
-        message = MessageModel(
-            name=form.name.data,
-            school=form.school.data,
-            department=form.department.data,
-            phone=form.phone.data,
-            mail=form.mail.data,
-            description=form.description.data,
-        )
         try:
+            message = MessageModel(
+                    name=form.name.data,
+                    school=form.school.data,
+                    department=form.department.data,
+                    phone=form.phone.data,
+                    mail=form.mail.data,
+                    description=form.description.data,
+                    )
+            user = User(
+                    name=form.name.data,
+                    school=form.school.data,
+                    department=form.department.data,
+                    phone=form.phone.data,
+                    mail=form.mail.data,
+                    )
+            query = User.query(User.phone == user.phone)
+
+            if not query.count():
+                user.put()
             message.put()
             message_id = message.key.id()
-            flash(u'Success', 'success') # if not return redirect, till next refresh will see.
             return jsonify(mid=message_id)
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')
             return redirect(url_for('list_messages'))
-    return render_template('base.html', messages=messages, form=form)
+        except ValueError:
+            return redirect(url_for('list_messages'))
 
 
 def update_message():
     if request.method == "POST":
         message_id = int(request.form.get('d'))
         message = MessageModel.get_by_id(message_id)
+        user    = User.query(User.phone == message.phone).get()
         if message and request.form.get('c'):
             message.shared = True
+            user.shared = True
             message.put()
+            user.put()
             flash(u'Share success', 'success')
             return redirect(url_for('list_messages'), 302)
-
-@login_required
-def edit_message(message_id):
-    message = MessageModel.get_by_id(message_id)
-    form = MessageForm(obj=message)
-    if request.method == "POST":
-        if form.validate_on_submit():
-            # example.example_name = form.data.get('example_name')
-            # example.example_description = form.data.get('example_description')
-            # example.put()
-            flash(u'Message %s successfully saved.(Test Not Really)' % message_id, 'success')
-            return redirect(url_for('list_messages'))
-    return render_template('edit_message.html', message=message, form=form)
 
 
 @login_required
@@ -95,7 +102,10 @@ def delete_message(message_id):
 @admin_required
 def admin_only():
     """This view requires an admin account"""
-    return 'Super-seekrit admin page.'
+    import datetime
+    period = datetime.datetime.now() - datetime.timedelta(weeks=1)    
+    users = User.query().filter(User.timestamp >= period)
+    return render_template('admin.html', users=users) 
 
 
 @cache.cached(timeout=60)

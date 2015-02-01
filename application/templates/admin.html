@@ -1,0 +1,29 @@
+
+<link href="/static/css/materialize.min.css" rel="stylesheet">
+<table>
+  <thead>
+    <tr>
+        <th data-field="id">id</th>
+        <th data-field="name">Name</th>
+        <th data-field="belong">Blong</th>
+        <th data-field="phone">Phone</th>
+        <th data-field="email">Email</th>
+        <th data-field="shared">Shared</th>
+        <th data-field="timestamp">Time</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+  {% set user_id = user.key.id() %}
+    <tr>
+      <td>{{ user_id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.school|e }} | {{ user.department|e }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ user.mail }}</td>
+      <td>{{ user.shared }}</td>
+      <td>{{ user.timestamp.strftime('%b %d, %Y %I:%M %p') }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
