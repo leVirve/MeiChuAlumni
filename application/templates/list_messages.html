@@ -1,6 +1,5 @@
 <ul class="cbp_tmtimeline">
   {% for message in messages %}
-  {% set message_id = message.key.id() %}
   <li class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
 
@@ -11,13 +10,19 @@
 
       <div class="cbp_tmicon"></div>
 
-      <div class="col s10">
+      <div class="col offset-s1 s7">
         <span class="black-text flow-text">
             <p>{{ message.description|e }}</p>
-            <small>{{ message.school|e }} | {{ message.department|e }}</small>
         </span>
       </div>
-
+      <div class="col s2">
+        {% if message.school == "清華大學" %}
+          <img src="static/img/panda.jpg" class="responsive-img circle">
+        {% else %}
+          <img src="static/img/fox.jpg" class="responsive-img circle">
+        {% endif %}
+        <span>{{ message.department|e }}</span>
+      </div>
     </div>
   </li>
   {% else %}
