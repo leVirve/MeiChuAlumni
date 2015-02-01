@@ -11,6 +11,7 @@ For example the *say_hello* handler, handling the URL route '/hello/<username>',
 """
 from google.appengine.api import users
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
+from google.appengine.datastore.datastore_query import Cursor
 
 from flask import request, render_template, flash, url_for, redirect, jsonify
 
@@ -21,6 +22,7 @@ from decorators import login_required, admin_required
 from forms import MessageForm
 from models import MessageModel, User
 
+import json
 
 # Flask-Cache (configured to use App Engine Memcache API)
 cache = Cache(app)
@@ -32,9 +34,25 @@ def home():
 
 def list_messages():
     """List all massages"""
-    messages = MessageModel.query().order(-MessageModel.timestamp)
-    form = MessageForm()
-    return render_template('base.html', messages=messages, form=form)
+    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
+    curs = Cursor(urlsafe=request.args.get('cursor'))
+    messages, next_curs, more = MsgQuery.fetch_page(3, start_cursor=curs)
+    if not curs.urlsafe():
+        form = MessageForm()
+        if more:
+            return render_template('base.html', 
+                    messages=messages, 
+                    form=form, 
+                    next_curs=next_curs.urlsafe(), 
+                    more=more)
+        else:
+            return render_template('base.html', 
+                    messages=messages, 
+                    form=form, next_curs=None, more=more)
+    data = ([dict(
+                p.to_dict(include=['school', 'department', 'timestamp', 'description'])
+            ) for p in messages])
+    return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
 
 
 def new_message():

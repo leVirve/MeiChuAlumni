@@ -1,17 +1,18 @@
-<ul class="cbp_tmtimeline">
+{% if messages %}
+<ul id="mflow" class="cbp_tmtimeline">
   {% for message in messages %}
   <li class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
 
-      <time class="col s2" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
-        <span>{{ message.timestamp.strftime('%b %d, %Y') }}</span>
-        <span>{{ message.timestamp.strftime('%I:%M %p') }}</span>
+      <time class="col s2 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
+        <p>{{ message.timestamp.strftime('%b %d') }}</p>
+        <p>{{ message.timestamp.strftime('%I:%M %p') }}</p>
       </time>
 
       <div class="cbp_tmicon"></div>
 
       <div class="col offset-s1 s7">
-        <span class="black-text flow-text">
+        <span class="grey-text text-darken-3">
             <p>{{ message.description|e }}</p>
         </span>
       </div>
@@ -21,11 +22,16 @@
         {% else %}
           <img src="static/img/fox.jpg" class="responsive-img circle">
         {% endif %}
-        <span>{{ message.department|e }}</span>
+        <h6 class="center-align">{{ message.department|e }}</h6>
       </div>
     </div>
   </li>
   {% else %}
   <p>還沒有祝福 QQ</p>
   {% endfor %}
+
 </ul>
+{% endif %}
+{% if more %}
+<button id="more" value="{{ next_curs }}">More</button>
+{% endif %}

@@ -108,8 +108,42 @@
         }, 'json');
         return false;
       });
-    });
+      {% if more %}
+      $('#more').click(function(ev) {
+        if(!$(this).val()) return false;
+        $.get("/blessings", {'cursor': $(this).val()},
+          function(d) {
+            d.messages.forEach(function(m) {
+              createNode(
+                m.timestamp,
+                m.description,
+                m.school,
+                m.department);
+              next = d.more ? d.next_src : '';
+              $('#more').val(next);
+            });
+          }
+        );
+      });
+      {% endif %}
 
+      function createNode(dt, m, s, p) {
+        var d = new Date(dt);
+        var itm = document.getElementById("mflow").lastElementChild;
+        var optd = { month: "short", day: "2-digit" },
+            optt = { hour: "2-digit", minute: "2-digit" },
+            cln = itm.cloneNode(true),
+            e = cln.firstElementChild;
+        e.children[0].dateTime = d.toLocaleDateString("en-us", $.extend(optd, optt));
+        e.children[0].children[0].textContent = d.toLocaleDateString("en-us", optd);
+        e.children[0].children[1].textContent = d.toLocaleTimeString("en-us", optt);
+        e.children[2].children[0].textContent = m;
+        e.children[3].children[0].src = s=="清華大學" ? "static/img/panda.jpg" : "static/img/fox.jpg"
+        e.children[3].children[1].textContent = p;
+        document.getElementById("mflow").appendChild(cln);
+      }
+
+    });
   </script>
   {% endblock %}
   {{ profiler_includes|safe }}
