@@ -33,17 +33,21 @@
       </section>
       <section id="content">
         <div class="row">
-          <div class="col offset-m2 offset-l2 s12 m8 l8">
           {% include 'content.html' %}
-          </div>
         </div>
       </section>
       <section id="blessing">
         <div class="row">
-          <div class="col offset-m2 offset-l2 s12 m8 l8">
+          <div class="col offset-l2 s12 m8 l8">
           {% include 'includes/flash_message.html' %}
           {% include 'form.html' %}
           {% include 'list_messages.html' %}
+          </div>
+          <div class="col hide-on-small-only m3 l2">
+            <ul class="section table-of-contents">
+              <li><a href="#new-message-form">發表祝福</a></li>
+              <li><a href="#mflow">看看祈福串</a></li>
+            </ul>
           </div>
         </div>
       </section>
@@ -83,8 +87,11 @@
         ev.preventDefault();
         $('ul.tabs').tabs('select_tab', 'blessing');
       });
+      $('.scrollspy').scrollSpy();
+      $('.tooltipped').tooltip({delay: 50});
       $('#new-message-form').submit(function(){
         $.post($(this).attr('action'), $(this).serialize(), function(d) {
+          toast('資料送出!', 4000);
           var b = document.createElement('button');
           b.innerHTML = '分享';
           b.className = 'btn waves-effect waves-light right';
@@ -95,7 +102,8 @@
             },
             function(response) {
               if (response && response.post_id) {
-                $.post("{{ url_for('update_message') }}", {'c':response.post_id,'d':d.mid},
+                toast('分享成功!', 4000);
+                $.post("/blessings/update", {'c':response.post_id,'d':d.mid},
                   function(){}
                 );
               }
@@ -144,6 +152,15 @@
         e.children[3].children[0].src = s=="清華大學" ? "static/img/panda.jpg" : "static/img/fox.jpg"
         e.children[3].children[1].textContent = p;
         return cln;
+      }
+      // Floating-Fixed table of contents
+      if ($('.table-of-contents').length) {
+        var toc_offset = $('.table-of-contents').first().offset().top;
+        $('.table-of-contents').each(function() {
+          var origin = $(this);
+          origin.pushpin({ top: toc_offset + $('header')[0].offsetHeight,
+            bottom: $(document).height() - window.innerHeight });
+        });
       }
 
     });

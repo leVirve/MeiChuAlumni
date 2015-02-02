@@ -1,5 +1,5 @@
 <div id="form" class="row z-depth-3">
-  <form id="new-message-form" class="col s12" action="{{ url_for('new_message') }}" method="post" accept-charset="utf-8">
+  <form id="new-message-form" class="col s12 section scrollspy" action="{{ url_for('new_message') }}" method="post" accept-charset="utf-8">
     {{ form.hidden_tag() }}
     <div class="row">
       <div class="input-field col s6">
@@ -35,7 +35,7 @@
         <label>祝福</label>
       </div>
     </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">送出
+      <button class="btn waves-effect waves-light tooltipped" type="submit" name="action" data-position="right" data-delay="50" data-tooltip="資料確認了嗎？">送出
         <i class="mdi-content-send right"></i>
       </button>
   </form>
