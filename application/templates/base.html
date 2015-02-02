@@ -145,9 +145,9 @@
             optt = { hour: "2-digit", minute: "2-digit" },
             cln = itm.cloneNode(true),
             e = cln.firstElementChild;
-        e.children[0].dateTime = d.toLocaleDateString("en-us", $.extend(optd, optt));
         e.children[0].children[0].textContent = d.toLocaleDateString("en-us", optd);
         e.children[0].children[1].textContent = d.toLocaleTimeString("en-us", optt);
+        e.children[0].dateTime = d.toLocaleDateString("en-us", $.extend(optd, optt));
         e.children[2].children[0].textContent = m;
         e.children[3].children[0].src = s=="清華大學" ? "static/img/panda.jpg" : "static/img/fox.jpg"
         e.children[3].children[1].textContent = p;
