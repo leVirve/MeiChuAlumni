@@ -21,7 +21,7 @@ from application import app
 from decorators import login_required, admin_required
 from forms import MessageForm
 from models import MessageModel, User
-
+import counter
 import json
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -39,19 +39,16 @@ def list_messages():
     messages, next_curs, more = MsgQuery.fetch_page(3, start_cursor=curs)
     if not curs.urlsafe():
         form = MessageForm()
-        if more:
-            return render_template('base.html', 
-                    messages=messages, 
-                    form=form, 
-                    next_curs=next_curs.urlsafe(), 
-                    more=more)
-        else:
-            return render_template('base.html', 
-                    messages=messages, 
-                    form=form, next_curs=None, more=more)
-    data = ([dict(
-                p.to_dict(include=['school', 'department', 'timestamp', 'description'])
-            ) for p in messages])
+        nthu, nctu = counter.get_count(u'清華大學'), counter.get_count(u'交通大學')
+        next_curs = next_curs.urlsafe() if more else None
+        return render_template('base.html',
+                    messages=messages,
+                    form=form,
+                    next_curs=next_curs, more=more,
+                    nthu=nthu, nctu=nctu)
+    data = ([dict(p.to_dict(
+                include=['school', 'department', 'timestamp', 'description']))
+                for p in messages])
     return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
 
 
@@ -81,6 +78,7 @@ def new_message():
                 user.put()
             message.put()
             message_id = message.key.id()
+            counter.increment(form.school.data)
             return jsonify(mid=message_id)
         except CapabilityDisabledError:
             flash(u'App Engine Datastore is currently in read-only mode.', 'info')

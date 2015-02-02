@@ -10,11 +10,11 @@
   <meta name="description" content="梅竹賽五倍祝福">
   <meta name="keywords" content="梅竹, 梅竹賽, 清大, 交大, 清交梅竹賽, 乙未梅竹">
   <meta name="author" content="Salas">
-  <meta property="og:url" content="http://appspot" />
+  <meta property="og:url" content="http://meichualumni.appspot.com/blessings" />
   <meta property="og:title" content="梅竹賽五倍祝福" />
   <meta property="og:type" content="website" />
-  <meta property="og:description" content="到底行不行啊!官方文件在騙我吧???" />
-  <meta property="og:image" content="http://media.urbandictionary.com/image/page/wtf-44339.jpg" />
+  <meta property="og:description" content="已未梅竹熱血開賽，一同為梅竹賽祈福！" />
+  <meta property="og:image" content="" />
 
   <title>梅竹賽五倍祝福</title>
   <link rel="shortcut icon" href="/static/img/favicon.ico">
@@ -58,7 +58,7 @@
   <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '372111882968567',
+        appId: '372111392968616',
         version: 'v2.2',
         cookie: true,
         status: true,
@@ -95,14 +95,16 @@
             },
             function(response) {
               if (response && response.post_id) {
-                $.post("{{ url_for('update_message') }}", {'c':response.post_id},
-                  function(dd) {
-                  console.log(dd);}
+                $.post("{{ url_for('update_message') }}", {'c':response.post_id,'d':d.mid},
+                  function(){}
                 );
               }
+              location.reload();
             });
-            location.reload();
           }
+          var c = createNode(new Date(), $('textarea[name="description"]').val(), $(':radio[name="school"]:checked').val(), $('#department').val());
+          p = document.getElementById("mflow");
+          p.insertBefore(c, p.firstChild);
           $('#somewhere').append(b);
           $('#new-message-form')[0].remove();
         }, 'json');
@@ -114,11 +116,12 @@
         $.get("/blessings", {'cursor': $(this).val()},
           function(d) {
             d.messages.forEach(function(m) {
-              createNode(
+              var c = createNode(
                 m.timestamp,
                 m.description,
                 m.school,
                 m.department);
+              document.getElementById("mflow").appendChild(c);
               next = d.more ? d.next_src : '';
               $('#more').val(next);
             });
@@ -140,7 +143,7 @@
         e.children[2].children[0].textContent = m;
         e.children[3].children[0].src = s=="清華大學" ? "static/img/panda.jpg" : "static/img/fox.jpg"
         e.children[3].children[1].textContent = p;
-        document.getElementById("mflow").appendChild(cln);
+        return cln;
       }
 
     });
