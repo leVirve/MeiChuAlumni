@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html class="no-js">
-{% set bootstrap_version = '3.3.2' %}
-{% set jquery_version = '2.1.3' %}
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +11,9 @@
   <meta property="og:title" content="梅竹賽五倍祝福" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="乙未梅竹熱血開賽，一同為梅竹賽祈福！" />
-  <meta property="og:image" content="" />
+  <meta property="og:image" content="http://i.imgur.com/uP7Z6zK.jpg" />
 
-  <title>梅竹賽五倍祝福</title>
+  <title>許梅竹一個未來</title>
   <link rel="shortcut icon" href="/static/img/favicon.ico">
   <link href="/static/css/materialize.min.css" rel="stylesheet">
   <link href="/static/css/messageline.css" rel="stylesheet">
@@ -56,7 +53,7 @@
 
   {% include 'includes/footer.html' %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ jquery_version }}/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
   <script src="/static/js/script.js"></script>
@@ -157,7 +154,7 @@
       {% if more %}
       $('#more').click(function(ev) {
         if(!$(this).val()) return false;
-        $.get("/blessings", {'cursor': $(this).val()},
+        $.get("/blessings/more", {'cursor': $(this).val()},
           function(d) {
             d.messages.forEach(function(m) {
               var c = createNode(

@@ -20,9 +20,10 @@ app.add_url_rule('/', 'home', view_func=views.home)
 
 # Blessing messages list page
 app.add_url_rule('/blessings', 'list_messages', view_func=views.list_messages, methods=['GET'])
+app.add_url_rule('/blessings/more', 'more_message', view_func=views.more_messages, methods=['GET'])
 
 # Blessing post message
-app.add_url_rule('/blessings', 'new_message', view_func=views.new_message, methods=['POST'])
+app.add_url_rule('/blessings', 'new_message', view_func=views.new_message, methods=['GET', 'POST'])
 
 # After leaving messages, visitor will receive a share button
 app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['GET', 'POST'])

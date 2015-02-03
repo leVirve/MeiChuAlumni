@@ -28,10 +28,12 @@ import json
 cache = Cache(app)
 
 
+@cache.cached(timeout=200)
 def home():
     return redirect(url_for('list_messages'))
 
 
+@cache.cached(timeout=60)
 def list_messages():
     """List all massages"""
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
@@ -42,18 +44,18 @@ def list_messages():
         nthu, nctu = counter.get_count(u'清華大學'), counter.get_count(u'交通大學')
         next_curs = next_curs.urlsafe() if more else None
         return render_template('base.html',
-                    messages=messages,
-                    form=form,
+                    messages=messages, form=form,
                     next_curs=next_curs, more=more,
                     nthu=nthu, nctu=nctu)
-    data = [dict(p.to_dict(
-                    include=[
-                        'school',
-                        'department',
-                        'timestamp',
-                        'description'
-                    ])
-                ) for p in messages]
+
+
+def more_messages():
+    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
+    curs = Cursor(urlsafe=request.args.get('cursor'))
+    messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
+    data = [dict(p.to_dict(include=[
+            'school','department','timestamp','description'])
+            ) for p in messages]
     return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
 
 
@@ -70,16 +72,15 @@ def new_message():
                     mail=form.mail.data,
                     description=form.description.data,
                     )
-            user = User(
+            query = User.query(User.phone == form.phone.data)
+            if not query.get():
+                user = User(
                     name=form.name.data,
                     school=form.school.data,
                     department=form.department.data,
                     phone=form.phone.data,
                     mail=form.mail.data,
                     )
-            query = User.query(User.phone == user.phone)
-
-            if not query.count():
                 user.put()
             message.put()
             message_id = message.key.id()
@@ -95,8 +96,9 @@ def new_message():
 def update_message():
     if request.method == "POST":
         message_id = int(request.form.get('d'))
-        message = MessageModel.get_by_id(message_id)
+        message_future = MessageModel.get_by_id(message_id)
         user    = User.query(User.phone == message.phone).get()
+        message = message_future.get_result()
         if message and request.form.get('c'):
             message.shared = True
             user.shared = True
