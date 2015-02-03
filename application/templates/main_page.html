@@ -1,11 +1,10 @@
 <div class="row" style="background:url('http://i.imgur.com/eZY5XmT.jpg')">
-  {% set total = (nthu + nctu) or 1 %}
   <div class="col s6 m6 l5 offset-l1">
     <div class="card" style="background:rgba(0,0,0,0)">
       <div class="card-image row">
         <img class="responsive-img activator" src="static/img/PANDA.png">
         <span class="card-title col s12">NTHU 熊貓
-          <div id="progressbar1" value="{{ 100*nthu/total }}"><div class="progress-label">人氣指數：??</div></div>
+          <div id="progressbar1" value="80%"><div class="progress-label">人氣指數：??</div></div>
         </span>
       </div>
       <div class="card-content valign-wrapper">
@@ -14,19 +13,5 @@
     </div>
   </div>
 
-  <div class="col s6 m6 l5">
-    <div class="card" style="background:rgba(0,0,0,0)">
-      <div class="card-image row">
-        <img class="activator" src="static/img/FOX.png">
-        <span class="card-title col s12">NCTU 狐狸
-          <div id="progressbar2" value="{{ 100*nctu/total }}"><div class="progress-label">人氣指數：??</div></div>
-          </div>
-        </span>
-      </div>
-      <div class="card-content valign-wrapper">
-        <a id="go4nctu" class="go waves-effect waves-light btn-large white-text valign progress-button red" data-loading="集氣中.." data-finished="交大加油!">為狐狸集氣</a>
-      </div>
-    </div>
-  </div>
 
 </div>

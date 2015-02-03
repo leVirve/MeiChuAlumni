@@ -13,14 +13,16 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <input id="nthu" type="radio" name="school" value="清華大學" class="validate">
-        <label for="nthu">清華大學</label>
-        <input id="nctu" type="radio" name="school" value="交通大學" class="validate">
-        <label for="nctu">交通大學</label>
+        <select class="browser-default" name="department">
+          <option value="" disabled selected>系級</option>
+          {% for subfield in form.department %}
+          {{ subfield }}
+          {% endfor %}
+        </select>
       </div>
       <div class="input-field col s6">
-        <input id="department" type="text" class="validate" name="department">
-        <label for="department">系級</label>
+        <input id="grade" type="text" class="validate" name="grade">
+        <label for="grade">Grade</label>
       </div>
     </div>
     <div class="row">
@@ -46,3 +48,4 @@
     </div>
   </div>
 </div>
+

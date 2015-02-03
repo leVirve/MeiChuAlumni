@@ -12,8 +12,8 @@ from google.appengine.ext import ndb
 class MessageModel(ndb.Model):
     """Message Model"""
     name        = ndb.StringProperty(required=True)
-    school      = ndb.StringProperty(required=True)
     department  = ndb.StringProperty(required=True)
+    grade       = ndb.IntegerProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
     description = ndb.TextProperty(required=True)
@@ -24,8 +24,8 @@ class MessageModel(ndb.Model):
 class User(ndb.Model):
     """ User Model """
     name        = ndb.StringProperty(required=True)
-    school      = ndb.StringProperty(required=True)
     department  = ndb.StringProperty(required=True)
+    grade       = ndb.IntegerProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
     shared      = ndb.BooleanProperty(default=False)

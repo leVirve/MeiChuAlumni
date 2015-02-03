@@ -18,13 +18,3 @@ body {
 li .row {
     margin-bottom:0;
 }
-.progress-label {
-    position: absolute;
-    left: 20%;
-    top: 4px;
-    color: #AC3748;
-}
-
-.ui-progressbar {
-    position: relative;
-}

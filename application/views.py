@@ -19,7 +19,7 @@ from flask_cache import Cache
 
 from application import app
 from decorators import login_required, admin_required
-from forms import MessageForm
+from forms import MessageForm, departments
 from models import MessageModel, User
 import counter
 import json
@@ -33,7 +33,7 @@ def home():
     return redirect(url_for('list_messages'))
 
 
-@cache.cached(timeout=60)
+#@cache.cached(timeout=60)
 def list_messages():
     """List all massages"""
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
@@ -41,12 +41,12 @@ def list_messages():
     messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
     if not curs.urlsafe():
         form = MessageForm()
-        nthu, nctu = counter.get_count(u'清華大學'), counter.get_count(u'交通大學')
+        counts = [counter.get_count(depart) for depart in departments]
         next_curs = next_curs.urlsafe() if more else None
         return render_template('base.html',
                     messages=messages, form=form,
                     next_curs=next_curs, more=more,
-                    nthu=nthu, nctu=nctu)
+                    cpunts=counts)
 
 
 def more_messages():
@@ -54,7 +54,7 @@ def more_messages():
     curs = Cursor(urlsafe=request.args.get('cursor'))
     messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
     data = [dict(p.to_dict(include=[
-            'school','department','timestamp','description'])
+            'grade','department','timestamp','description'])
             ) for p in messages]
     return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
 
@@ -62,12 +62,13 @@ def more_messages():
 def new_message():
     """ New message into database """
     form = MessageForm()
+    app.logger.debug(form.department.data)
     if form.validate_on_submit():
         try:
             message = MessageModel(
                     name=form.name.data,
-                    school=form.school.data,
                     department=form.department.data,
+                    grade=int(form.grade.data),
                     phone=form.phone.data,
                     mail=form.mail.data,
                     description=form.description.data,
@@ -76,19 +77,16 @@ def new_message():
             if not query.get():
                 user = User(
                     name=form.name.data,
-                    school=form.school.data,
                     department=form.department.data,
+                    grade=int(form.grade.data),
                     phone=form.phone.data,
                     mail=form.mail.data,
                     )
                 user.put()
             message.put()
             message_id = message.key.id()
-            counter.increment(form.school.data)
+            counter.increment(form.department.data)
             return jsonify(mid=message_id)
-        except CapabilityDisabledError:
-            flash(u'App Engine Datastore is currently in read-only mode.', 'info')
-            return redirect(url_for('list_messages'))
         except ValueError:
             return redirect(url_for('list_messages'))
 
@@ -97,7 +95,7 @@ def update_message():
     if request.method == "POST":
         message_id = int(request.form.get('d'))
         message_future = MessageModel.get_by_id(message_id)
-        user    = User.query(User.phone == message.phone).get()
+        user = User.query(User.phone == message.phone).get()
         message = message_future.get_result()
         if message and request.form.get('c'):
             message.shared = True
