@@ -29,8 +29,8 @@ app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['
 
 # Contrived admin-only view
 # app.add_url_rule('/admin_only', 'admin_only', view_func=views.admin_only)
-app.add_url_rule('/get/users', 'admin_only', view_func=views.admin_only)
-app.add_url_rule('/get/raffle', 'admin_only', view_func=views.admin_only)
+# app.add_url_rule('/get/users', 'admin_only', view_func=views.admin_only)
+app.add_url_rule('/get/raffle', 'admin_only', view_func=views.get_raffle_list)
 
 # Delete a message
 # app.add_url_rule('/messages/<int:message_id>/delete', view_func=views.delete_message, methods=['POST'])

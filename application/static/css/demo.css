@@ -1,18 +1,9 @@
-body {
-    background: #EDEDED;
-}
-
-#header h1 {
-    margin: 0;
-}
-
 .bg {
     background: url('../img/header.jpg') no-repeat center;
     background-size: 100%;
     height: 180px;
     padding-top: 40px;
 }
-
 .indicator {
     background-color: #AB47BC !important;
 }
@@ -21,23 +12,16 @@ body {
     font-size: 1.2em;
 }
 
-#nav ul > li a {
-    font-size: 1.75em;
-}
-
-.wrap {
-    margin-top: 20px;
-}
-
-.life-bar {
-    height: 50px;
-    background-color: red;
-}
-
-.life-bar .determinate {
-    background-color: orange;
-}
-
 li .row {
     margin-bottom:0;
+}
+.progress-label {
+    position: absolute;
+    left: 20%;
+    top: 4px;
+    color: #AC3748;
+}
+
+.ui-progressbar {
+    position: relative;
 }

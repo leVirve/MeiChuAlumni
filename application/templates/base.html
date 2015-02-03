@@ -13,7 +13,7 @@
   <meta property="og:url" content="http://meichualumni.appspot.com/blessings" />
   <meta property="og:title" content="梅竹賽五倍祝福" />
   <meta property="og:type" content="website" />
-  <meta property="og:description" content="已未梅竹熱血開賽，一同為梅竹賽祈福！" />
+  <meta property="og:description" content="乙未梅竹熱血開賽，一同為梅竹賽祈福！" />
   <meta property="og:image" content="" />
 
   <title>梅竹賽五倍祝福</title>
@@ -21,12 +21,12 @@
   <link href="/static/css/materialize.min.css" rel="stylesheet">
   <link href="/static/css/messageline.css" rel="stylesheet">
   <link href="/static/css/demo.css" rel="stylesheet">
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
 </head>
-<body>
-
+<body style="background:#ededed">
   {% include 'includes/nav.html' %} {# pull in navbar #}
-  <div class="wrap">
-
+  <div class="wrap" style="margin-top:20px">
     <div class="t-content">
       <section id="home">
         {% include 'main_page.html' %}
@@ -57,7 +57,9 @@
   {% include 'includes/footer.html' %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ jquery_version }}/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
+  <script src="/static/js/script.js"></script>
   {% block tail_script %}
   <script>
     window.fbAsyncInit = function() {
@@ -78,14 +80,48 @@
    }(document, 'script', 'facebook-jssdk'));
   </script>
   <script>
-    $(function(){
-      $('#go4nthu').click(function(ev) {
-        ev.preventDefault();
-        $('ul.tabs').tabs('select_tab', 'blessing');
-      });
-      $('#go4nctu').click(function(ev) {
-        ev.preventDefault();
-        $('ul.tabs').tabs('select_tab', 'blessing');
+    $(function() {
+      var nthu = {{ nthu }}, nctu = {{ nctu }};
+      $("#progressbar1").progressbar({ value: false });
+      $("#progressbar2").progressbar({ value: false });
+      function bar(obj, n) {
+        var b = obj,
+            c = obj.find(".ui-progressbar-value"),
+            d = obj.find(".progress-label"),
+            total = nthu + nctu;
+        b.progressbar("option", "value", 1);
+        b.css({ 'background': '#333',
+                'padding': '8px',
+                'border-radius': '13px',
+                'border': 'None'});
+        c.css({ 'background': 'url(static/img/pbar-ani.gif)',
+                'border-radius': '8px',
+                'background-size': 'auto 100%'});
+        c.addClass("ui-corner-right");
+        c.animate({width: b.attr("value")+"%"}, 4000);
+        $({v: 0}).animate({v: 100*n/total}, {
+          duration: 4000,
+          easing:'swing',
+          step: function() {
+              d.text("人氣指數："+Math.round(this.v*100)/100);
+          },
+          complete: function() {
+            $('ul.tabs').tabs('select_tab', 'blessing');
+            $(document).scrollTop( $("#header").offset().top );
+          }
+        });
+      }
+      $('.go').click(function(event){
+        target = $(event.target);
+        $(this).progressTimed(1.5);
+        if(target.is('#go4nthu')) {
+          nthu += 1;
+          bar($("#progressbar1"), nthu);
+        } else {
+          nctu += 1;
+          bar($("#progressbar2"), nctu);
+        }
+        e.preventDefault();
       });
       $('.scrollspy').scrollSpy();
       $('.tooltipped').tooltip({delay: 50});

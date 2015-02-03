@@ -36,7 +36,7 @@ def list_messages():
     """List all massages"""
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     curs = Cursor(urlsafe=request.args.get('cursor'))
-    messages, next_curs, more = MsgQuery.fetch_page(3, start_cursor=curs)
+    messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
     if not curs.urlsafe():
         form = MessageForm()
         nthu, nctu = counter.get_count(u'清華大學'), counter.get_count(u'交通大學')
@@ -46,9 +46,14 @@ def list_messages():
                     form=form,
                     next_curs=next_curs, more=more,
                     nthu=nthu, nctu=nctu)
-    data = ([dict(p.to_dict(
-                include=['school', 'department', 'timestamp', 'description']))
-                for p in messages])
+    data = [dict(p.to_dict(
+                    include=[
+                        'school',
+                        'department',
+                        'timestamp',
+                        'description'
+                    ])
+                ) for p in messages]
     return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
 
 
@@ -122,6 +127,16 @@ def admin_only():
     period = datetime.datetime.now() - datetime.timedelta(weeks=1)    
     users = User.query().filter(User.timestamp >= period)
     return render_template('admin.html', users=users) 
+
+
+@admin_required
+def get_raffle_list():
+    """ Get the list of user id and shared state for raffle """
+    import datetime
+    period = datetime.datetime.now() - datetime.timedelta(weeks=1)
+    users = User.query().filter(User.timestamp >= period)
+    data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
+    return jsonify(rafflelist=data)
 
 
 @cache.cached(timeout=60)

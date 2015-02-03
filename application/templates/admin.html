@@ -13,6 +13,7 @@
     </tr>
   </thead>
   <tbody>
+  {% if users %}
   {% for user in users %}
   {% set user_id = user.key.id() %}
     <tr>
@@ -26,4 +27,5 @@
     </tr>
   {% endfor %}
   </tbody>
+  {% endif %}
 </table>
