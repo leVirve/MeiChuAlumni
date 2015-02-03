@@ -130,13 +130,22 @@ def admin_only():
 
 
 @admin_required
+def get_users(uid):
+    if uid:
+        user = User.get_by_id(uid)
+        return jsonify(user=user.to_dict())
+
+
+@admin_required
 def get_raffle_list():
     """ Get the list of user id and shared state for raffle """
-    import datetime
-    period = datetime.datetime.now() - datetime.timedelta(weeks=1)
-    users = User.query().filter(User.timestamp >= period)
-    data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
-    return jsonify(rafflelist=data)
+    if request.method == "POST":
+        import datetime
+        period = datetime.datetime.now() - datetime.timedelta(weeks=1)
+        users = User.query().filter(User.timestamp >= period)
+        data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
+        return jsonify(rafflelist=data)
+    return render_template('admin.html')
 
 
 @cache.cached(timeout=60)
