@@ -21,7 +21,7 @@ from application import app
 from decorators import login_required, admin_required
 from forms import MessageForm, departments
 from models import MessageModel, User
-import counter
+import fastcounter
 import json
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -39,14 +39,13 @@ def list_messages():
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     curs = Cursor(urlsafe=request.args.get('cursor'))
     messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
-    if not curs.urlsafe():
-        form = MessageForm()
-        counts = [counter.get_count(depart) for depart in departments]
-        next_curs = next_curs.urlsafe() if more else None
-        return render_template('base.html',
-                    messages=messages, form=form,
-                    next_curs=next_curs, more=more,
-                    cpunts=counts)
+    form = MessageForm()
+    counts = [v for v in fastcounter.get_counts(departments)]
+    next_curs = next_curs.urlsafe() if more else None
+    return render_template('base.html',
+                messages=messages, form=form,
+                next_curs=next_curs, more=more,
+                counts=zip(departments, counts))
 
 
 def more_messages():
@@ -62,7 +61,6 @@ def more_messages():
 def new_message():
     """ New message into database """
     form = MessageForm()
-    app.logger.debug(form.department.data)
     if form.validate_on_submit():
         try:
             message = MessageModel(
@@ -85,7 +83,7 @@ def new_message():
                 user.put()
             message.put()
             message_id = message.key.id()
-            counter.increment(form.department.data)
+            fastcounter.incr(form.department.data)
             return jsonify(mid=message_id)
         except ValueError:
             return redirect(url_for('list_messages'))
@@ -105,28 +103,14 @@ def update_message():
             flash(u'Share success', 'success')
             return redirect(url_for('list_messages'), 302)
 
-
-@login_required
-def delete_message(message_id):
-    """Delete an message object"""
-    message = MessageModel.get_by_id(message_id)
-    if request.method == "POST":
-        try:
-            message.key.delete()
-            flash(u'Message %s successfully deleted.' % message_id, 'success')
-            return redirect(url_for('list_messages'))
-        except CapabilityDisabledError:
-            flash(u'App Engine Datastore is currently in read-only mode.', 'info')
-            return redirect(url_for('list_messages'))
+def photo_manage():
+    return render_template('photo.html') 
 
 
 @admin_required
 def admin_only():
     """This view requires an admin account"""
-    import datetime
-    period = datetime.datetime.now() - datetime.timedelta(weeks=1)    
-    users = User.query().filter(User.timestamp >= period)
-    return render_template('admin.html', users=users) 
+    return 'admin_page'
 
 
 @admin_required

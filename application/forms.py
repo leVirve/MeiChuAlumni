@@ -14,6 +14,7 @@ from wtforms.ext.appengine.ndb import model_form
 
 from .models import MessageModel
 
+
 departments = [
     u"物理系",
     u"數學系",

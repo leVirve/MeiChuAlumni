@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="description" content="梅竹賽五倍祝福">
+    <meta name="keywords" content="梅竹, 梅竹賽, 清大, 交大, 清交梅竹賽, 乙未梅竹">
+    <meta name="author" content="Salas">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link href="/static/css/materialize.min.css" rel="stylesheet">
+    <link href="/static/css/demo.css" rel="stylesheet">
+    <title>梅竹照片集</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://masonry.desandro.com/masonry.pkgd.min.js"></script>
+    <script src="/static/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/js/materialize.min.js"></script>
+
+
+    <style media="screen">
+    .item{
+      box-shadow: 10px 10px 5px #888888;
+      max-width: 300px;
+      max-height: 300px;
+    }
+    </style>
+  </head>
+  <body>
+    {% include 'includes/nav.html' %}
+{% raw %}
+  <div class="row" style="padding-top:20px;">
+    <div id="output" class="col offset-s1 s10 center-align"></div>
+  </div>
+
+
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <script id="template" type="text/x-jquery-template">
+      <div id="photo">
+        <div id="_container">
+        {{each photos}}
+        <img class="item" src="${src}" alt="" />
+        {{/each}}
+        </div>
+      </div>
+    </script>
+
+    <script charset="utf-8">
+    $(function(){
+      var $ul = $('ul');
+      $.ajax({
+          dataType: 'jsonp',
+          url: 'https://picasaweb.google.com/data/feed/base/user/103449317412346247800/albumid/6112595503038439665',
+          data: {
+              alt: 'json-in-script',
+          },
+          jsonpCallback: 'picasaCallback',
+          success: function(data){
+              var photos = [];
+              $.each(data.feed.entry, function(){
+                  photos.push({
+                      src: this.content.src
+                  });
+              });
+              $('#template').tmpl({
+                  photos: photos
+              }).appendTo('#output');
+          },
+          error: function(){
+              alert('failed ;(');
+          }
+      });
+    });
+    </script>
+    <script>
+      var $container = $('#_container');
+      // initialize
+      $container.imagesLoaded( function() {
+        $container.masonry({
+          itemSelector: '.item',
+          columWidth: 200,
+          isAnimated: true
+        });
+      });
+      $(document).ready(function(){
+        $('ul.tabs').tabs('select_tab', 'photo');
+        $('ul.tabs a[href!="#photo"]').click(function(event) {
+          target = $(event.target);
+          setTimeout(function() {
+            // console.log(target);
+            // console.log(target.href);
+            location.href = '/blessings';// + $(this).attr('href');
+          }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>
+{% endraw %}

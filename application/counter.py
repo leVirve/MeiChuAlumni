@@ -28,7 +28,7 @@ SHARD_KEY_TEMPLATE = u'shard-{}-{:d}'
 
 class GeneralCounterShardConfig(ndb.Model):
     """Tracks the number of shards for each named counter."""
-    num_shards = ndb.IntegerProperty(default=20)
+    num_shards = ndb.IntegerProperty(default=5)
 
     @classmethod
     def all_keys(cls, name):

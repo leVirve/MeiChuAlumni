@@ -29,13 +29,11 @@ app.add_url_rule('/blessings', 'new_message', view_func=views.new_message, metho
 app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['GET', 'POST'])
 
 # Contrived admin-only view
-# app.add_url_rule('/admin_only', 'admin_only', view_func=views.admin_only)
 app.add_url_rule('/get/users/<int:uid>', 'get_users', view_func=views.get_users, methods=['GET', 'POST'])
 app.add_url_rule('/get/raffle', 'admin_only', view_func=views.get_raffle_list, methods=['GET', 'POST'])
 
-# Delete a message
-# app.add_url_rule('/messages/<int:message_id>/delete', view_func=views.delete_message, methods=['POST'])
 
+app.add_url_rule('/photo', 'photo_manage', view_func=views.photo_manage)
 
 ## Error handlers
 # Handle 404 errors
