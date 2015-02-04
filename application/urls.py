@@ -16,15 +16,17 @@ from application import fastcounter
 # See http://code.google.com/appengine/docs/python/config/appconfig.html#Warming_Requests
 app.add_url_rule('/_ah/warmup', 'warmup', view_func=views.warmup)
 
-app.add_url_rule('/', 'home', view_func=views.home)
-app.add_url_rule('/index', 'list_messages', view_func=views.list_messages)
-app.add_url_rule('/photo', 'photo_manage', view_func=views.photo_manage)
-app.add_url_rule('/blessings', 'list_messages', view_func=views.list_messages, methods=['GET'])
+# Main
+app.add_url_rule('/', view_func=views.home)
+# app.add_url_rule('/index', view_func=views.list_messages)
+app.add_url_rule('/content', view_func=views.content)
+app.add_url_rule('/photo', view_func=views.photo)
+app.add_url_rule('/blessings', view_func=views.list_messages)
 app.add_url_rule('/blessings', 'new_message', view_func=views.new_message, methods=['POST'])
 app.add_url_rule('/blessings/more', 'more_message', view_func=views.more_messages, methods=['GET'])
 app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['POST'])
 
-
+# Memcache store queue
 app.add_url_rule('/task/counter_persist_incr', view_func=fastcounter.CounterPersistIncr.post, methods=['POST'])
 
 # Contrived admin-only view
@@ -42,4 +44,3 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     return render_template('500.html'), 500
-

@@ -2,9 +2,6 @@
   <form id="new-message-form" class="col s12 section scrollspy" action="{{ url_for('new_message') }}" method="post" accept-charset="utf-8">
     {{ form.hidden_tag() }}
     <div class="row">
-      <p>馬上留下一句對睽違兩年梅竹賽的祝福，填寫聯絡資料還能參加抽獎哦！</p>
-    </div>
-    <div class="row">
       <div class="input-field col s6">
         <input id="name" type="text" class="validate" name="name">
         <label for="name">姓名</label>
@@ -16,7 +13,7 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <select class="_browser-default" name="department">
+        <select class="browser-default" name="department">
           <option value="" disabled selected>系別</option>
           {% for subfield in form.department %}
           {{ subfield }}

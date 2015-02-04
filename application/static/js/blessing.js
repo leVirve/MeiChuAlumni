@@ -40,9 +40,8 @@ responsive:true
       labels:l,
       datasets: [
         {
-            label: "My First dataset",
+            label: "dataset",
             fillColor: COLORS,
-            // strokeColor: "rgba(220,220,220,0.8)",
             data: d
         }
       ]
@@ -79,15 +78,8 @@ function createNode(dt, m, s, p) {
 }
 
 $(function() {
-  $('#content').click(function(){$("#wrap").load("../static/content.html");return false;})
-  // $('#blessings').click(function(){$("#wrap").load("form.html");return false;})
-  // $('.go').click(function(event){
-  //   $('ul.tabs').tabs('select_tab', 'blessing');
-  //   $(document).scrollTop( $("#header").offset().top );
-  //   e.preventDefault();
-  // });
+  $(".button-collapse").sideNav();
   $('.tooltipped').tooltip({delay: 50});
-  $('select').material_select();
   $('.slider').slider({full_width: true});
   $('[href="#photo"]').click(function() {
     setTimeout(function() {
@@ -124,10 +116,8 @@ $(function() {
     }, 'json');
     return false;
   });
-  for (var i = 60; i <= 99; i++) {
-    $('select[name="grade"]').append(new Option(i, i));
-  };
-  for (var i = 00; i <= 18; i++) {
-    $('select[name="grade"]').append(new Option(i, i));
-  };
+  for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
+  for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
+  for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
+  $('select').material_select();
 });

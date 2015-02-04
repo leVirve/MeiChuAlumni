@@ -22,27 +22,38 @@ from decorators import login_required, admin_required
 from forms import MessageForm, departments
 from models import MessageModel, User
 import fastcounter
+
 import json
+import operator
 
 # Flask-Cache (configured to use App Engine Memcache API)
 cache = Cache(app)
 
 
-@cache.cached(timeout=200)
+#@cache.cached(timeout=200)
 def home():
-    return redirect(url_for('list_messages'))
+    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
+    messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=Cursor())
+    next_curs = next_curs.urlsafe() if more else None
+    counts = [v for v in fastcounter.get_counts(departments)]
+    return pjax('main_page.html',
+                messages=messages,
+                next_curs=next_curs, more=more,
+                counts=zip(departments, counts))
 
 
 #@cache.cached(timeout=60)
 def list_messages():
     """List all massages"""
+    counts = get_heading_department()
+
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     curs = Cursor(urlsafe=request.args.get('cursor'))
     messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=curs)
     form = MessageForm()
-    counts = [v for v in fastcounter.get_counts(departments)]
+
     next_curs = next_curs.urlsafe() if more else None
-    return render_template('base.html',
+    return pjax('blessings.html',
                 messages=messages, form=form,
                 next_curs=next_curs, more=more,
                 counts=zip(departments, counts))
@@ -104,10 +115,19 @@ def update_message():
             return redirect(url_for('list_messages'), 302)
 
 
-#@cache.cached(timeout=600)
-def photo_manage():
-    return redirect(url_for('static', filename='photo.html'))
-    #return render_template('photo.html') 
+def photo():
+    return pjax('photo.html')
+
+
+def content():
+    return pjax('content.html')
+
+
+def get_heading_department(num=10):
+    counts = [v for v in fastcounter.get_counts(departments)]
+    d = dict(zip(departments, counts))
+    d = sorted(d.items(), key=operator.itemgetter(1), reverse=True)
+    return d[:num]
 
 
 @admin_required
@@ -135,11 +155,12 @@ def get_raffle_list():
     return render_template('admin.html')
 
 
-@cache.cached(timeout=60)
-def cached_messages():
-    """This view should be cached for 60 sec"""
-    messages = MessageModel.query()
-    return render_template('list_messages_cached.html', messages=messages)
+def pjax(template, **kwargs):
+    """Test whether the request was with PJAX or not."""
+    if "X-PJAX" in request.headers:
+        app.logger.debug('pjax')
+        return render_template(template)
+    return render_template("base.html", template=template, **kwargs)
 
 
 def warmup():
@@ -148,4 +169,3 @@ def warmup():
 
     """
     return ''
-
