@@ -14,15 +14,16 @@
     <div class="row">
       <div class="input-field col s6">
         <select class="browser-default" name="department">
-          <option value="" disabled selected>系級</option>
+          <option value="" disabled selected>系別</option>
           {% for subfield in form.department %}
           {{ subfield }}
           {% endfor %}
         </select>
       </div>
       <div class="input-field col s6">
-        <input id="grade" type="text" class="validate" name="grade">
-        <label for="grade">Grade</label>
+        <select class="browser-default" name="grade">
+          <option value="" disabled selected>系級</option>
+        </select>
       </div>
     </div>
     <div class="row">

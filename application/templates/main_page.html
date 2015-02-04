@@ -1,18 +1,14 @@
 <div class="row" style="background:#FFCCA3;padding-top:20px;">
-  <div class="col s7 m6 l6 offset-l1">
-    <div class="card" style="background:rgba(0,0,0,0)">
-      <div class="card-image">
-        <img src="http://i.imgur.com/oR4K4CS.png">
-      </div>
-    </div>
-  </div>
+
+
+
 
   <div class="col s5 m6 l4">
     <div class="card z-depth-2" style="background:rgba(0,0,0,0)">
       <div class="card-image">
         <div class="center-align activator" style="padding-top:20px">
           <canvas id="chartpie" width="380" height="380"></canvas>
-          <a id="go4nthu" class="go waves-effect waves-light btn-large white-text progress-button red" style="position:relative;top:-217px;margin-right:0;" data-loading="集氣中.." data-finished="清大加油!"><i class="mdi-action-favorite right"></i>為集氣</a>
+          <a id="go4nthu" class="go waves-effect waves-light btn-large white-text progress-button red" style="" data-loading="集氣中.." data-finished="清大加油!"><i class="mdi-action-favorite right"></i>集氣</a>
         </div>
       </div>
       <div class="card-content" style="top:-54px;">
@@ -28,6 +24,14 @@
           </p>
         </div>
     </div>
+  </div>
+
+  <div class="col s5 m4 l5">
+    {% include 'list_messages.html' %}
+  </div>
+
+  <div class="col s2 m2 l3">
+    {% include 'includes/sideview.html' %}
   </div>
 
 </div>

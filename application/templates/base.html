@@ -21,45 +21,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
-  <script src="/static/js/Chart.min.js"></script>
+  <script src="/static/js/ChartNew.js"></script>
   <script src="/static/js/blessing.js"></script>
 </head>
 <body style="background:#ededed">
   {% include 'includes/nav.html' %}
-  <div class="wrap" style="">
+  <div id="wrap">
     <div class="t-content">
       <section id="home">
         {% include 'main_page.html' %}
       </section>
-      <section id="content">
-        <div class="row">
-          {% include 'content.html' %}
-        </div>
-      </section>
-      <section id="blessing">
-        <div class="row">
-          <div class="col offset-l2 s12 m8 l8">
-          {% include 'form.html' %}
-          {% include 'list_messages.html' %}
-          </div>
-          <div class="col hide-on-small-only m3 l2">
-            <ul class="section table-of-contents">
-              <li><a href="#new-message-form">發表祝福</a></li>
-              <li><a href="#mflow">看看祈福串</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section id="photo">
-        <div class="center-align">
-          <div class="" style="padding: 50px 0;">
-            {% include 'includes/loader.html' %}
-          </div>
-        </div>
-      </section>
     </div><!-- /content -->
   </div><!-- /tabs -->
 
+  {% include 'form.html' %}
   {% include 'includes/footer.html' %}
 
 
@@ -94,15 +69,6 @@
         );
       });
       {% endif %}
-      // Floating-Fixed table of contents
-      if ($('.table-of-contents').length) {
-        var toc_offset = $('.table-of-contents').first().offset().top;
-        $('.table-of-contents').each(function() {
-          var origin = $(this);
-          origin.pushpin({ top: toc_offset + $('header')[0].offsetHeight,
-            bottom: $(document).height() - window.innerHeight });
-        });
-      }
     });
   </script>
   {% endblock %}

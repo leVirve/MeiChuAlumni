@@ -14,6 +14,8 @@ from google.appengine.api import memcache
 from google.appengine.api.taskqueue import taskqueue
 from google.appengine.ext import db, webapp
 
+from application import app
+import sys
 __all__ = ['get_count', 'get_counts', 'incr']
 
 
@@ -79,10 +81,13 @@ def incr(name, delta=1, update_interval=10):
     elif delta < 0:
         v = memcache.decr(delta_key, -delta, initial_value=BASE_VALUE)
 
-    if memcache.add(lock_key, None, time=update_interval):
+    state = memcache.add(lock_key, None, time=update_interval)
+    app.logger.debug(state)
+    if state:
         # time to enqueue a new task to persist the counter
         # note: cast to int on next line is due to GAE issue 2012
         # (http://code.google.com/p/googleappengine/issues/detail?id=2012)
+        app.logger.debug('Some counter into datastore')
         v = int(v)
         delta_to_persist = v - BASE_VALUE
         if delta_to_persist == 0:
@@ -92,10 +97,13 @@ def incr(name, delta=1, update_interval=10):
             qn = random.randint(0, 4)
             qname = 'PersistCounter%d' % qn
             taskqueue.add(url='/task/counter_persist_incr',
-                          queue_name=qname,
+                          #queue_name=qname,
                           params=dict(name=name,
                                       delta=delta_to_persist))
-        except:
+            app.logger.debug('%s' % delta_to_persist)
+        except Exception as e:
+	    raise e
+            app.logger.debug("Unexpected error:", sys.exc_info()[0])
             # task queue failed but we already put the delta in memcache;
             # just try to enqueue the task again next interval
             return
@@ -112,12 +120,14 @@ def incr(name, delta=1, update_interval=10):
             logging.warn("counter %s reset failed (will double-count): %d",
                          name, delta_to_persist)
 
-
+from flask import request
 class CounterPersistIncr(webapp.RequestHandler):
     """Task handler for incrementing the datastore's counter value."""
-    def post(self):
-        name = self.request.get('name')
-        delta = int(self.request.get('delta'))
+    @staticmethod
+    def post():
+        name = request.form.get('name')
+        delta = int(request.form.get('delta'))
+        app.logger.debug('post !!!!!!!!!!!! %s %d' % (name, delta))
         db.run_in_transaction(CounterPersistIncr.incr_counter, name, delta)
 
     @staticmethod

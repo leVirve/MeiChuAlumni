@@ -1,14 +1,14 @@
 {% if messages %}
-<ul id="mflow" class="cbp_tmtimeline section scrollspy">
+<ul id="mflow" class="cbp_tmtimeline section scrollspy" style="margin:0">
   {% for message in messages %}
   <li class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
-      <time class="col s2 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}">
-        <p>{{ message.timestamp.strftime('%b %d') }}</p>
-        <p>{{ message.timestamp.strftime('%I:%M %p') }}</p>
+      <time class="col offset-s1 s2 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}" style="font-size:12px;">
+        {{ message.timestamp.strftime('%b %d') }}
+        {{ message.timestamp.strftime('%I:%M %p') }}
       </time>
       <div class="cbp_tmicon"></div>
-      <div class="col offset-s1 s6">
+      <div class="col s6">
         <span class="grey-text text-darken-3">
             <p>{{ message.description|e }}</p>
         </span>

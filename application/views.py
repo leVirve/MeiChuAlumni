@@ -38,7 +38,7 @@ def list_messages():
     """List all massages"""
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     curs = Cursor(urlsafe=request.args.get('cursor'))
-    messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
+    messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=curs)
     form = MessageForm()
     counts = [v for v in fastcounter.get_counts(departments)]
     next_curs = next_curs.urlsafe() if more else None
@@ -103,8 +103,11 @@ def update_message():
             flash(u'Share success', 'success')
             return redirect(url_for('list_messages'), 302)
 
+
+#@cache.cached(timeout=600)
 def photo_manage():
-    return render_template('photo.html') 
+    return redirect(url_for('static', filename='photo.html'))
+    #return render_template('photo.html') 
 
 
 @admin_required

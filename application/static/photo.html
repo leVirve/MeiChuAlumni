@@ -14,8 +14,10 @@
     <script src="http://masonry.desandro.com/masonry.pkgd.min.js"></script>
     <script src="/static/js/imagesloaded.pkgd.min.js"></script>
     <script src="/static/js/materialize.min.js"></script>
-
-
+    <script>
+    $(function(){$("#nav").load("nav.html");});
+    $(function(){$("#foot").load("footer.html");});
+    </script>
     <style media="screen">
     .item{
       box-shadow: 10px 10px 5px #888888;
@@ -25,12 +27,12 @@
     </style>
   </head>
   <body>
-    {% include 'includes/nav.html' %}
-{% raw %}
+  <div id="nav"></div>
   <div class="row" style="padding-top:20px;">
     <div id="output" class="col offset-s1 s10 center-align"></div>
   </div>
 
+  <div id="foot"></div>
 
     <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
     <script id="template" type="text/x-jquery-template">
@@ -94,4 +96,3 @@
     </script>
   </body>
 </html>
-{% endraw %}

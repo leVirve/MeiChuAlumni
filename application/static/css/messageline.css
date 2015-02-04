@@ -11,9 +11,9 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 10px;
+    width: 5px;
     background: #ff1744;
-    left: 20%;
+    left: 8%;
     margin-left: -20px;
     z-index: 9;
 }
@@ -101,8 +101,8 @@
 
 /* The icons */
 .cbp_tmtimeline > li .cbp_tmicon {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     font-family: 'ecoico';
     speak: none;
     font-style: normal;
@@ -118,9 +118,9 @@
     border-radius: 50%;
     box-shadow: 0 0 0 5px #f48fb1;
     text-align: center;
-    left: 20%;
+    left: 8%;
     top: 10%;
-    margin: 0 0 0 -25px;
+    margin: 0 0 0 -22px;
     z-index: 19;
 }
 

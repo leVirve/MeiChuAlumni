@@ -17,35 +17,46 @@ window.fbAsyncInit = function() {
 
 function processChart(raw) {
   $(function() {
-    var COLORS = [{f:"#F7464A", b:"#FF5A5E"},
-                  {f:"#46BFBD", b:"#5AD3D1"},
-                  {f:"#43B4DE", b:"#57C8F2"},
-                  {f:"#FDB45C", b:"#FFC870"},
-                  {f:"#E4BF33", b:"#F8D347"},
-                  {f:"#949FB1", b:"#A8B3C5"},
-                  {f:"#4D5360", b:"#616774"}];
+    var COLORS = [
+                 "#46BFBD",
+                 "#43B4DE",
+                 "#FDB45C",
+                 "#E4BF33",
+                 "#949FB1",
+                 "#4D5360"];
+var opt = {
+responsive:true
+}
     var ctx = document.getElementById("chartpie").getContext("2d");
 
-    function getColored(raw) {
-      for (var i = raw.length - 1; i >= 0; i--) {
-        raw[i].color = COLORS[i % COLORS.length].f;
-        raw[i].highlight = COLORS[i % COLORS.length].b;
-      };
-      return raw;
-    }
-
     raw.sort(function(a,b){return b.value-a.value});
-    var data = getColored(raw.slice(0, 11)),
-        doughnut = new Chart(ctx).Doughnut(data),
+    var choosen = raw.slice(0, 11);
+    var l = [], d = [];
+    for (var i = choosen.length - 1; i-- ;) {
+      d.push(choosen[i].value);
+      l.push(choosen[i].label);
+    };
+    var data = {
+      labels:l,
+      datasets: [
+        {
+            label: "My First dataset",
+            fillColor: COLORS,
+            // strokeColor: "rgba(220,220,220,0.8)",
+            data: d
+        }
+      ]
+    }
+    var bar = new Chart(ctx).HorizontalBar(data, opt),
         total = 0;
     for (var i = raw.length - 1; i--;) {
       total += raw[i].value;
     };
     $('#ups').text(total);
     for (var i = 0; i < 10; i++) {
-      if(data[i].value == 0) break;
+      if(d[i] == 0) break;
       var v = document.createElement('li');
-      v.textContent = data[i].label + ' / ' + data[i].value;
+      v.textContent = d[i] + ' / ' + l[i];
       $('#dlist').append(v);
     }
   });
@@ -67,17 +78,17 @@ function createNode(dt, m, s, p) {
   return cln;
 }
 
-
 $(function() {
-  $('.go').click(function(event){
-    $('ul.tabs').tabs('select_tab', 'blessing');
-    $(document).scrollTop( $("#header").offset().top );
-    e.preventDefault();
-  });
-  $('.scrollspy').scrollSpy();
+  $('#content').click(function(){$("#wrap").load("../static/content.html");return false;})
+  // $('#blessings').click(function(){$("#wrap").load("form.html");return false;})
+  // $('.go').click(function(event){
+  //   $('ul.tabs').tabs('select_tab', 'blessing');
+  //   $(document).scrollTop( $("#header").offset().top );
+  //   e.preventDefault();
+  // });
   $('.tooltipped').tooltip({delay: 50});
   $('select').material_select();
-
+  $('.slider').slider({full_width: true});
   $('[href="#photo"]').click(function() {
     setTimeout(function() {
       location.href = '/photo';
@@ -113,4 +124,10 @@ $(function() {
     }, 'json');
     return false;
   });
+  for (var i = 60; i <= 99; i++) {
+    $('select[name="grade"]').append(new Option(i, i));
+  };
+  for (var i = 00; i <= 18; i++) {
+    $('select[name="grade"]').append(new Option(i, i));
+  };
 });
