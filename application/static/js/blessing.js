@@ -18,7 +18,7 @@ window.fbAsyncInit = function() {
 function processChart(raw) {
   $(function() {
     var COLORS = ["#46BFBD","#43B4DE","#FDB45C","#E4BF33","#949FB1","#4D5360"],
-        opt = { responsive:true },
+        opt = { responsive:true, scaleShowLabels:false,yAxisFontColor:"#666" },
         ctx = document.getElementById("chartpie").getContext("2d");
     raw.sort(function(a,b){return b.value-a.value});
     var choosen = raw.slice(0, 11);
@@ -30,10 +30,9 @@ function processChart(raw) {
     var data = {
       labels:l,
       datasets: [{
-            label: "dataset",
             fillColor: COLORS,
             data:d
-        }]
+      }]
     }
     var bar = new Chart(ctx).HorizontalBar(data, opt),
         total = 0;
@@ -64,7 +63,7 @@ function createNode(dt, m, s, p) {
   return cln;
 }
 $(function() {
-
+  $('.slider').slider();
   $(".button-collapse").sideNav();
   $(document).pjax('a[data-pjax]', '#main');
   $('#new-message-form').submit(function(){
@@ -88,9 +87,6 @@ $(function() {
           location.reload();
         });
       }
-      var c = createNode(new Date(), $('textarea[name="description"]').val(), $('select[name="grade"] option:selected').val(), $('select[name="department"] option:selected').val());
-      p = document.getElementById("mflow");
-      p.insertBefore(c, p.firstChild);
       $('#somewhere').append(b);
       $('#new-message-form')[0].remove();
     }, 'json');

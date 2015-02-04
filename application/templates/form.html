@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s8">
           <select class="_browser-default" name="department">
             <option value="" disabled selected>系別</option>
             {% for subfield in form.department %}
@@ -22,7 +22,7 @@
             {% endfor %}
           </select>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field col s4">
           <select class="browser-default" name="grade">
             <option value="" disabled selected>系級</option>
           </select>
@@ -37,7 +37,7 @@
       <div class="row">
         <div class="input-field col s12">
           <textarea class="materialize-textarea" name="description"></textarea>
-          <label>祝福</label>
+          <label>祝福的話</label>
         </div>
       </div>
         <button class="btn waves-effect waves-light tooltipped" type="submit" name="action" data-position="right" data-delay="50" data-tooltip="資料確認了嗎？">送出

@@ -1,7 +1,72 @@
-<div class="row" style="margin-top:50px;">
+<div>
+<div class="row" style="padding-top:30px;">
+  <div class="col s12 offset-m1 m6">{% include 'form.html' %}</div>
 
-  <div class="col s12 offset-m1 m10">{% include 'form.html' %}</div>
+  <div class="col s12 m4">
+    <div class="">
+      <ul class="collapsible" data-collapsible="accordion">
+      {% for department, messages in messageset.iteritems() %}
+      {% if messages %}
+      <!-- <div class="col s12"> -->
+          <li class="collection-header">
+            <div class="collapsible-header"><i class="mdi-social-whatshot"></i>{{ department }}</div>
+            <div class="collapsible-body" style="background:#ddd">
+            <table>
+            <tbody>
+            {% for m in messages %}
+            <tr>
+              <td>{{ m.description|e }}</td>
+              <td>{{ m.grade }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+            </div>
+          </li>
+      <!-- </div> -->
+      {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
 
-
-
+  </div>
 </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false
+    });
+    $('#new-message-form').submit(function(){
+      $.post($(this).attr('action'), $(this).serialize(), function(d) {
+        toast('資料送出!', 4000);
+        var b = document.createElement('button');
+        b.innerHTML = '分享';
+        b.className = 'btn waves-effect waves-light right';
+        b.onclick = function() {
+          FB.ui({
+            method: 'feed',
+            link: window.location.href,
+          },
+          function(response) {
+            if (response && response.post_id) {
+              toast('分享成功!', 4000);
+              $.post("/blessings/update", {'c':response.post_id,'d':d.mid},
+                function(){}
+              );
+            }
+            location.reload();
+          });
+        }
+        $('#somewhere').append(b);
+        $('#new-message-form')[0].remove();
+      }, 'json');
+      return false;
+    });
+    for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
+    for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
+    for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
+    $('select').material_select();
+  });
+</script>
