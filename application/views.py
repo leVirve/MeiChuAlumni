@@ -35,31 +35,31 @@ def home():
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=Cursor())
     next_curs = next_curs.urlsafe() if more else None
-    counts = [v for v in fastcounter.get_counts(departments)]
     return pjax('main_page.html',
                 messages=messages,
                 next_curs=next_curs, more=more,
-                counts=zip(departments, counts))
+                counts=get_heading_department())
 
 
 #@cache.cached(timeout=60)
 def list_messages():
-    """List all massages"""
     counts = get_heading_department()
-
-    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
-    curs = Cursor(urlsafe=request.args.get('cursor'))
-    messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=curs)
+    messageset = {}
+    for department, val in counts:
+        messageset[department] = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(10)
+    # MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
+    # curs = Cursor(urlsafe=request.args.get('cursor'))
+    # messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
+    # next_curs = next_curs.urlsafe() if more else None
     form = MessageForm()
-
-    next_curs = next_curs.urlsafe() if more else None
     return pjax('blessings.html',
-                messages=messages, form=form,
-                next_curs=next_curs, more=more,
-                counts=zip(departments, counts))
+                messageset=messageset, form=form,
+                # next_curs=next_curs, more=more,
+                # counts=counts
+                )
 
 
-def more_messages():
+def more_messages(department=None):
     MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
     curs = Cursor(urlsafe=request.args.get('cursor'))
     messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
@@ -111,7 +111,6 @@ def update_message():
             user.shared = True
             message.put()
             user.put()
-            flash(u'Share success', 'success')
             return redirect(url_for('list_messages'), 302)
 
 
@@ -123,6 +122,7 @@ def content():
     return pjax('content.html')
 
 
+@cache.cached(timeout=600, key_prefix='depart_counts')
 def get_heading_department(num=10):
     counts = [v for v in fastcounter.get_counts(departments)]
     d = dict(zip(departments, counts))
@@ -159,7 +159,7 @@ def pjax(template, **kwargs):
     """Test whether the request was with PJAX or not."""
     if "X-PJAX" in request.headers:
         app.logger.debug('pjax')
-        return render_template(template)
+        return render_template(template, **kwargs)
     return render_template("base.html", template=template, **kwargs)
 
 

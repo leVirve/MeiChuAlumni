@@ -1,51 +1,49 @@
-<div id="form" class="row z-depth-3">
-  <form id="new-message-form" class="col s12 section scrollspy" action="{{ url_for('new_message') }}" method="post" accept-charset="utf-8">
-    {{ form.hidden_tag() }}
-    <div class="row">
-      <p>馬上留下一句對睽違兩年梅竹賽的祝福，填寫聯絡資料還能參加抽獎哦！</p>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input id="name" type="text" class="validate" name="name">
-        <label for="name">姓名</label>
+<div id="form" class="z-depth-3">
+  <div class="col s12 card">
+    <form id="new-message-form" action="{{ url_for('new_message') }}" method="post" accept-charset="utf-8">
+      {{ form.hidden_tag() }}
+      <div class="card-content"><span class="card-title pink-text text-accent-4">馬上留下一句對睽違兩年梅竹賽的祝福，填寫聯絡資料還能參加抽獎哦！</span></div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="name" type="text" class="validate" name="name">
+          <label for="name">姓名</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="phone" type="text" class="validate" name="phone">
+          <label for="phone">電話</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <input id="phone" type="text" class="validate" name="phone">
-        <label for="phone">電話</label>
+      <div class="row">
+        <div class="input-field col s6">
+          <select class="_browser-default" name="department">
+            <option value="" disabled selected>系別</option>
+            {% for subfield in form.department %}
+            {{ subfield }}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-field col s6">
+          <select class="browser-default" name="grade">
+            <option value="" disabled selected>系級</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <select class="_browser-default" name="department">
-          <option value="" disabled selected>系別</option>
-          {% for subfield in form.department %}
-          {{ subfield }}
-          {% endfor %}
-        </select>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" name="mail">
+          <label for="email">聯絡信箱</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <select class="browser-default" name="grade">
-          <option value="" disabled selected>系級</option>
-        </select>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea class="materialize-textarea" name="description"></textarea>
+          <label>祝福</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="email" type="email" class="validate" name="mail">
-        <label for="email">聯絡信箱</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea class="materialize-textarea" name="description"></textarea>
-        <label>祝福</label>
-      </div>
-    </div>
-      <button class="btn waves-effect waves-light tooltipped" type="submit" name="action" data-position="right" data-delay="50" data-tooltip="資料確認了嗎？">送出
-        <i class="mdi-content-send right"></i>
-      </button>
-  </form>
-  <div class="card col s12">
+        <button class="btn waves-effect waves-light tooltipped" type="submit" name="action" data-position="right" data-delay="50" data-tooltip="資料確認了嗎？">送出
+          <i class="mdi-content-send right"></i>
+        </button>
+    </form>
     <div class="card-content">
       <span class="card-title purple-text">Facebook 分享</span>
       <p id="somewhere">與 Facebook 好友分享梅竹集氣活動可增加抽獎機率唷！</p>

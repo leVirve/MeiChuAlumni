@@ -1,36 +1,7 @@
 <div class="row" style="margin-top:50px;">
 
-<div class="col s8">
-{% include 'form.html' %}
-</div>
+  <div class="col s12 offset-m1 m10">{% include 'form.html' %}</div>
 
-
-{% if messages %}
-<ul id="mflow" class="cbp_tmtimeline col s12" style="margin:0">
-  {% for message in messages %}
-  <li class="card-panel grey lighten-5 z-depth-1">
-    <div class="row valign-wrapper">
-      <time class="col offset-s1 s2 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}" style="font-size:12px;">
-        {{ message.timestamp.strftime('%b %d') }}
-        {{ message.timestamp.strftime('%I:%M %p') }}
-      </time>
-      <div class="cbp_tmicon"></div>
-      <div class="col s6">
-        <span class="grey-text text-darken-3">
-            <p>{{ message.description|e }}</p>
-        </span>
-      </div>
-      <div class="col s3">
-        <h6 class="center-align">{{ message.department|e }} | {{ message.grade|e }}</h6>
-      </div>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
-{% endif %}
-{% if more %}
-<button id="more" value="{{ next_curs }}">More</button>
-{% endif %}
 
 
 </div>

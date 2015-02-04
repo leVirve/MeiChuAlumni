@@ -17,11 +17,10 @@
   <link href="/static/css/materialize.min.css" rel="stylesheet">
   <link href="/static/css/messageline.css" rel="stylesheet">
   <link href="/static/css/demo.css" rel="stylesheet">
-  <!-- <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet"> -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.2/jquery.pjax.min.js"></script>
+  <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.2/jquery.pjax.min.js"></script> -->
   <script src="/static/js/materialize.min.js"></script>
+  <script src="/static/js/jquery.pjax.min.js"></script>
   <script src="/static/js/ChartNew.js"></script>
   <script src="/static/js/blessing.js"></script>
 </head>
@@ -38,40 +37,7 @@
     {% include 'footer.html' %}
   </footer>
 
-  <script>
-    $(function() {
-      $(document).pjax('a[data-pjax]', '#main');
-      var raw = [
-        {% for c in counts %}
-        {
-            value: {{ c[1] }},
-            label: "{{ c[0] }}"
-        },
-        {% endfor %}
-      ];
-      processChart(raw);
-      {% if more %}
-      $('#more').click(function(ev) {
-        if(!$(this).val()) return false;
-        $.get("/blessings/more", {'cursor': $(this).val()},
-          function(d) {
-            d.messages.forEach(function(m) {
-              var c = createNode(
-                m.timestamp,
-                m.description,
-                m.grade,
-                m.department);
-              document.getElementById("mflow").appendChild(c);
-              next = d.more ? d.next_src : '';
-              $('#more').val(next);
-            });
-          }
-        );
-      });
-      {% endif %}
 
-    });
-  </script>
   {{ profiler_includes|safe }}
 </body>
 </html>

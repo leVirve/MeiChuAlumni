@@ -82,12 +82,10 @@ def incr(name, delta=1, update_interval=10):
         v = memcache.decr(delta_key, -delta, initial_value=BASE_VALUE)
 
     state = memcache.add(lock_key, None, time=update_interval)
-    app.logger.debug(state)
     if state:
         # time to enqueue a new task to persist the counter
         # note: cast to int on next line is due to GAE issue 2012
         # (http://code.google.com/p/googleappengine/issues/detail?id=2012)
-        app.logger.debug('Some counter into datastore')
         v = int(v)
         delta_to_persist = v - BASE_VALUE
         if delta_to_persist == 0:
@@ -100,7 +98,6 @@ def incr(name, delta=1, update_interval=10):
                           #queue_name=qname,
                           params=dict(name=name,
                                       delta=delta_to_persist))
-            app.logger.debug('%s' % delta_to_persist)
         except Exception as e:
 	    raise e
             app.logger.debug("Unexpected error:", sys.exc_info()[0])
