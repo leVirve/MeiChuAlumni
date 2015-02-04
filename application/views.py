@@ -30,7 +30,7 @@ import operator
 cache = Cache(app)
 
 
-#@cache.cached(timeout=200)
+@cache.cached(timeout=600)
 def home():
     messages = MessageModel.query().order(-MessageModel.timestamp).fetch(7)
     return pjax('main_page.html',

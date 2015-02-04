@@ -14,8 +14,7 @@
           <tbody>
           {% for m in messages %}
           <tr>
-            <td>{{ m.description|e }}</td>
-            <td>{{ m.grade }}</td>
+            <td>{{ m.description|e }} | {{ m.grade }} 級</td>
           </tr>
           {% endfor %}
           </tbody>

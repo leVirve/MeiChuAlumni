@@ -44,16 +44,9 @@
         $('#column').html('');
         for (var i = d.length - 1; i >= 0; i--) {
           var node = document.createElement('tr'),
-              j = document.createElement('td'),
-              k = document.createElement('td'),
-              l = document.createElement('td');
-          node.className = 'row', j.className='col s8', k.className='col s2'; l.className='col s1'
-          j.innerHTML = d[i].description;
-          k.innerHTML = d[i].department;
-          l.innerHTML = d[i].grade;
+              j = document.createElement('td');
+          j.innerHTML = d[i].description + ' | ' + d[i].department + d[i].grade;
           node.appendChild(j);
-          node.appendChild(k);
-          node.appendChild(l);
           $('#column').append(node);
         };
       }, 'json');
