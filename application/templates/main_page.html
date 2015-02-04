@@ -1,25 +1,16 @@
 <div class="row" style="padding-top:20px;">
 
   <div class="col s12 m5 l3">
-      <h5 class="grey-text text-darken-2 center">前十大留言系級</h5>
-      <div class="card-image">
-        <div class="center-align activator" style="padding-top:20px">
-          <canvas id="chartpie" width="380" height="380"></canvas>
-          <h5><a id="go4nthu" class="go waves-effect waves-light btn-large white-text red"><i class="mdi-action-favorite right"></i>我要集氣</a></h5>
-        </div>
+    <h5 class="grey-text text-darken-2 center">前十大留言系級</h5>
+    <div class="card-image">
+      <div class="center-align activator" style="padding-top:20px">
+        <canvas id="chartpie" width="380" height="380"></canvas>
+        <h5><a id="go4nthu" class="waves-effect waves-light btn-large white-text red" href="/blessings" pjax-data><i class="mdi-action-favorite right"></i>我要集氣</a></h5>
+        <p class="blue-text text-darken-4">人氣指數：<span id="ups"></span>
+        <br><a class="" href="/more" pjax-data> 看看其他系怎麼說</a>
+        </p>
       </div>
-      <div class="card-content" style="top:-54px;">
-        <span class="card-title activator blue-text text-darken-4">
-            人氣指數：<span id="ups"></span>
-            <i class="mdi-navigation-more-vert right"></i>
-        </span>
-      </div>
-      <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Ranking <i class="mdi-navigation-close right"></i></span>
-          <p>
-            <ul id="dlist"></ul>
-          </p>
-      </div>
+    </div>
   </div>
 
   <div class="col s12 m7 l5">
@@ -35,7 +26,6 @@
 
 <script>
   $(function() {
-    {% if more %}
     var raw = [
       {% for c in counts %}
       {
@@ -45,25 +35,6 @@
       {% endfor %}
     ];
     processChart(raw);
-    $('#more').click(function(ev) {
-      if(!$(this).val()) return false;
-      $.get("/blessings/more", {'cursor': $(this).val()},
-        function(d) {
-          d.messages.forEach(function(m) {
-            var c = createNode(
-              m.timestamp,
-              m.description,
-              m.grade,
-              m.department);
-            console.log(c);
-            document.getElementById("mflow").appendChild(c);
-            next = d.more ? d.next_src : '';
-            $('#more').val(next);
-          });
-        }
-      );
-    });
-    {% endif %}
-
+    $('.slider').slider();
   });
 </script>

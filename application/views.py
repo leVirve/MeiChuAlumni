@@ -32,41 +32,25 @@ cache = Cache(app)
 
 #@cache.cached(timeout=200)
 def home():
-    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
-    messages, next_curs, more = MsgQuery.fetch_page(6, start_cursor=Cursor())
-    next_curs = next_curs.urlsafe() if more else None
+    messages = MessageModel.query().order(-MessageModel.timestamp).fetch(7)
     return pjax('main_page.html',
                 messages=messages,
-                next_curs=next_curs, more=more,
                 counts=get_heading_department())
 
 
-#@cache.cached(timeout=60)
 def list_messages():
-    counts = get_heading_department()
-    messageset = {}
-    for department, val in counts:
-        messageset[department] = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(10)
-    # MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
-    # curs = Cursor(urlsafe=request.args.get('cursor'))
-    # messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
-    # next_curs = next_curs.urlsafe() if more else None
-    form = MessageForm()
     return pjax('blessings.html',
-                messageset=messageset, form=form,
-                # next_curs=next_curs, more=more,
-                # counts=counts
-                )
+                messageset=get_heading_depart_messages(), form=MessageForm())
 
 
-def more_messages(department=None):
-    MsgQuery = MessageModel.query().order(-MessageModel.timestamp)
-    curs = Cursor(urlsafe=request.args.get('cursor'))
-    messages, next_curs, more = MsgQuery.fetch_page(20, start_cursor=curs)
+def more_messages():
+    form = MessageForm()
+    department = form.department.data
+    messages = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(20)
     data = [dict(p.to_dict(include=[
             'grade','department','timestamp','description'])
             ) for p in messages]
-    return jsonify(messages=data, next_src=next_curs.urlsafe(), more=more)
+    return jsonify(messages=data)
 
 
 def new_message():
@@ -94,7 +78,7 @@ def new_message():
                 user.put()
             message.put()
             message_id = message.key.id()
-            fastcounter.incr(form.department.data)
+            fastcounter.incr(form.department.data + str(form.grade.data))
             return jsonify(mid=message_id)
         except ValueError:
             return redirect(url_for('list_messages'))
@@ -122,12 +106,30 @@ def content():
     return pjax('content.html')
 
 
+def morepage():
+    form = MessageForm()
+    return pjax('messages.html', form=form)
+
+
+nums = range(60, 99) + range(10, 19)
+
 @cache.cached(timeout=600, key_prefix='depart_counts')
 def get_heading_department(num=10):
-    counts = [v for v in fastcounter.get_counts(departments)]
-    d = dict(zip(departments, counts))
+    li = [d + str(i) for d in departments for i in nums]
+    counts = [v for v in fastcounter.get_counts(li)]
+    d = dict(zip(li, counts))
     d = sorted(d.items(), key=operator.itemgetter(1), reverse=True)
     return d[:num]
+
+
+@cache.cached(timeout=600, key_prefix='depart_comments')
+def get_heading_depart_messages():
+    counts = get_heading_department()
+    messageset = {}
+    for g, val in counts:
+        department, grade = g[:-2], g[-2:]
+        messageset[department] = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(10)
+    return messageset
 
 
 @admin_required
@@ -158,7 +160,6 @@ def get_raffle_list():
 def pjax(template, **kwargs):
     """Test whether the request was with PJAX or not."""
     if "X-PJAX" in request.headers:
-        app.logger.debug('pjax')
         return render_template(template, **kwargs)
     return render_template("base.html", template=template, **kwargs)
 

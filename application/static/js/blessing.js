@@ -63,37 +63,6 @@ function createNode(dt, m, s, p) {
   return cln;
 }
 $(function() {
-  $('.slider').slider();
   $(".button-collapse").sideNav();
   $(document).pjax('a[data-pjax]', '#main');
-  $('#new-message-form').submit(function(){
-    $.post($(this).attr('action'), $(this).serialize(), function(d) {
-      toast('資料送出!', 4000);
-      var b = document.createElement('button');
-      b.innerHTML = '分享';
-      b.className = 'btn waves-effect waves-light right';
-      b.onclick = function() {
-        FB.ui({
-          method: 'feed',
-          link: window.location.href,
-        },
-        function(response) {
-          if (response && response.post_id) {
-            toast('分享成功!', 4000);
-            $.post("/blessings/update", {'c':response.post_id,'d':d.mid},
-              function(){}
-            );
-          }
-          location.reload();
-        });
-      }
-      $('#somewhere').append(b);
-      $('#new-message-form')[0].remove();
-    }, 'json');
-    return false;
-  });
-  for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
-  for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
-  for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
-  $('select').material_select();
 });

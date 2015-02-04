@@ -7,23 +7,21 @@
       <ul class="collapsible" data-collapsible="accordion">
       {% for department, messages in messageset.iteritems() %}
       {% if messages %}
-      <!-- <div class="col s12"> -->
-          <li class="collection-header">
-            <div class="collapsible-header"><i class="mdi-social-whatshot"></i>{{ department }}</div>
-            <div class="collapsible-body" style="background:#ddd">
-            <table>
-            <tbody>
-            {% for m in messages %}
-            <tr>
-              <td>{{ m.description|e }}</td>
-              <td>{{ m.grade }}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-            </table>
-            </div>
-          </li>
-      <!-- </div> -->
+        <li class="collection-header">
+          <div class="collapsible-header"><i class="mdi-social-whatshot"></i>{{ department }}</div>
+          <div class="collapsible-body" style="background:#ddd">
+          <table>
+          <tbody>
+          {% for m in messages %}
+          <tr>
+            <td>{{ m.description|e }}</td>
+            <td>{{ m.grade }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+          </table>
+          </div>
+        </li>
       {% endif %}
       {% endfor %}
       </ul>
@@ -60,7 +58,7 @@
           });
         }
         $('#somewhere').append(b);
-        $('#new-message-form')[0].remove();
+        $('#new-message-form').clear();
       }, 'json');
       return false;
     });

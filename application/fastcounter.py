@@ -74,7 +74,6 @@ def incr(name, delta=1, update_interval=10):
     """
     lock_key = "ctr_lck:" + name
     delta_key = "ctr_val:" + name
-
     # update memcache
     if delta >= 0:
         v = memcache.incr(delta_key, delta, initial_value=BASE_VALUE)
@@ -99,7 +98,6 @@ def incr(name, delta=1, update_interval=10):
                           params=dict(name=name,
                                       delta=delta_to_persist))
         except Exception as e:
-	    raise e
             app.logger.debug("Unexpected error:", sys.exc_info()[0])
             # task queue failed but we already put the delta in memcache;
             # just try to enqueue the task again next interval
@@ -124,7 +122,6 @@ class CounterPersistIncr(webapp.RequestHandler):
     def post():
         name = request.form.get('name')
         delta = int(request.form.get('delta'))
-        app.logger.debug('post !!!!!!!!!!!! %s %d' % (name, delta))
         db.run_in_transaction(CounterPersistIncr.incr_counter, name, delta)
 
     @staticmethod
