@@ -31,3 +31,7 @@ class User(ndb.Model):
     shared      = ndb.BooleanProperty(default=False)
     timestamp   = ndb.DateTimeProperty(auto_now=True)
 
+
+class CounterDB(ndb.Model):
+    """ Counter in db Model """
+    val         = ndb.IntegerProperty(default=0)

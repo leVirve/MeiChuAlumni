@@ -12,17 +12,17 @@ import random
 
 from google.appengine.api import memcache
 from google.appengine.api.taskqueue import taskqueue
-from google.appengine.ext import db, webapp
+from google.appengine.ext import ndb, webapp
 
 from application import app
 import sys
 __all__ = ['get_count', 'get_counts', 'incr']
 
 
-class Counter(db.Model):
+class Counter(ndb.Model):
     """Persistent storage of a counter's values"""
     # key_name is the counter's name
-    value = db.IntegerProperty(indexed=False)
+    value = ndb.IntegerProperty(indexed=False)
 
 
 def get_count(name):
@@ -33,7 +33,7 @@ def get_count(name):
     unpersisted memcache count.  It does not include any count waiting to be
     persisted on the task queue.
     """
-    c = Counter.get_by_key_name(name)
+    c = Counter.get_by_id(name)
     fmc = int(memcache.get("ctr_val:" + name) or BASE_VALUE) - BASE_VALUE
     if c:
         return c.value + fmc
@@ -45,8 +45,8 @@ def get_counts(names):
     """Like get_count, but fetches multiple counts at once which is much
     more efficient than getting them one at a time.
     """
-    db_keys = [db.Key.from_path('Counter', name) for name in names]
-    db_counts = db.get(db_keys)
+    db_keys = [ndb.Key('Counter', name) for name in names]
+    db_counts = ndb.get_multi(db_keys)
     mc_counts = memcache.get_multi(names, 'ctr_val:')
     ret = []
     for i, name in enumerate(names):
@@ -122,11 +122,13 @@ class CounterPersistIncr(webapp.RequestHandler):
     def post():
         name = request.form.get('name')
         delta = int(request.form.get('delta'))
-        db.run_in_transaction(CounterPersistIncr.incr_counter, name, delta)
+        app.logger.debug(name + delta)
+        ndb.transaction(CounterPersistIncr.incr_counter, name, delta)
+        return 'go persist'
 
     @staticmethod
     def incr_counter(name, delta):
-        c = Counter.get_by_key_name(name)
+        c = Counter.get_by_id(name)
         if not c:
             c = Counter(key_name=name, value=delta)
         else:

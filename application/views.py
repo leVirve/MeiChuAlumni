@@ -20,7 +20,7 @@ from flask_cache import Cache
 from application import app
 from decorators import login_required, admin_required
 from forms import MessageForm, departments
-from models import MessageModel, User
+from models import MessageModel, User, CounterDB
 import fastcounter
 
 import json
@@ -30,7 +30,7 @@ import operator
 cache = Cache(app)
 
 
-@cache.cached(timeout=600)
+#@cache.cached(timeout=600)
 def home():
     messages = MessageModel.query().order(-MessageModel.timestamp).fetch(7)
     return pjax('main_page.html',
@@ -40,17 +40,20 @@ def home():
 
 def list_messages():
     return pjax('blessings.html',
-                messageset=get_heading_depart_messages(), form=MessageForm())
+                messageset=get_heading_depart_messages(),
+                form=MessageForm())
 
 
 def more_messages():
     form = MessageForm()
     department = form.department.data
-    messages = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(20)
-    data = [dict(p.to_dict(include=[
-            'grade','department','timestamp','description'])
-            ) for p in messages]
-    return jsonify(messages=data)
+    messages = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(30)
+    #data = [dict(p.to_dict(include=[
+    #        'grade','timestamp','description'])
+    #        ) for p in messages]
+    return pjax('messages.html',
+                messages=messages,
+                form=MessageForm())
 
 
 def new_message():
@@ -78,7 +81,12 @@ def new_message():
                 user.put()
             message.put()
             message_id = message.key.id()
-            fastcounter.incr(form.department.data + str(form.grade.data))
+            key_string = u'%s%d' % (form.department.data, form.grade.data)
+            counter = CounterDB.get_by_id(key_string)
+            if counter is None:
+                counter = CounterDB(id=key_string)
+            counter.val += 1
+            counter.put()
             return jsonify(mid=message_id)
         except ValueError:
             return redirect(url_for('list_messages'))
@@ -111,22 +119,17 @@ def morepage():
     return pjax('messages.html', form=form)
 
 
-nums = range(60, 99) + range(10, 19)
-
-@cache.cached(timeout=600, key_prefix='depart_counts')
+#@cache.cached(timeout=600, key_prefix='depart_counts')
 def get_heading_department(num=10):
-    li = [d + str(i) for d in departments for i in nums]
-    counts = [v for v in fastcounter.get_counts(li)]
-    d = dict(zip(li, counts))
-    d = sorted(d.items(), key=operator.itemgetter(1), reverse=True)
-    return d[:num]
+    counts = CounterDB.query().order(-CounterDB.val).fetch(10)
+    return [(p.val, p.key.id().decode('utf-8')) for p in counts]
 
 
 @cache.cached(timeout=600, key_prefix='depart_comments')
 def get_heading_depart_messages():
     counts = get_heading_department()
     messageset = {}
-    for g, val in counts:
+    for val, g in counts:
         department, grade = g[:-2], g[-2:]
         messageset[department] = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(10)
     return messageset

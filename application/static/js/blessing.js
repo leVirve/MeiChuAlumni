@@ -23,7 +23,7 @@ function processChart(raw) {
     raw.sort(function(a,b){return b.value-a.value});
     var choosen = raw.slice(0, 11);
     var l = [], d = [];
-    for (var i = choosen.length - 1; i-- ;) {
+    for (var i = choosen.length - 1; i >= 0 ;i--) {
       d.push(choosen[i].value);
       l.push(choosen[i].label);
     };
@@ -36,7 +36,7 @@ function processChart(raw) {
     }
     var bar = new Chart(ctx).HorizontalBar(data, opt),
         total = 0;
-    for (var i = raw.length - 1; i--;) {total += raw[i].value;};
+    for (var i = raw.length - 1; i >= 0; i--) {total += raw[i].value;};
     $('#ups').text(total);
     for (var i = 0; i < 10; i++) {
       if(d[i] == 0) break;

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col s12 offset-m2 m8 card center-align">
-    <form id="more-message-form" method="post" action="{{ url_for('more_message') }}" accept-charset="utf-8">
+    <form id="more-message-form" method="post" action="{{ url_for('more_message') }}" accept-charset="utf-8" data-pjax>
       {{ form.hidden_tag() }}
       <div class="card-content"><span class="card-title pink-text text-accent-4">想看看哪個系？</span></div>
 
@@ -23,35 +23,36 @@
   <div class="col s12 offset-m2 m8">
     <ul class="collapsible" data-collapsible="accordion">
       <li class="collection-header" style="">
-        <div id="n" class="collapsible-header">查詢結果</div>
+        <div id="n" class="collapsible-header">
+        {% if messages %}
+        {{ messages[0].department }}
+        {% else %}
+        查詢結果
+        {% endif %}
+        </div>
         <div class="collapsible-body" style="background:#ddd">
-          <table><tbody id="column"></tbody></table>
+          <table><tbody id="column">
+            {% for m in messages %}
+            <tr><td>{{ m.description|e }} | {{ m.grade }} 級</td></tr>
+            {% endfor %}
+          </tbody></table>
         </div>
       </li>
     </ul>
   </div>
 </div>
 
+
 <script>
   $(document).ready(function(){
     $('.collapsible').collapsible({
       accordion : false
     });
-    $('#more-message-form').submit(function(){
-      $.post($(this).attr('action'), $(this).serialize(), function(d) {
-        d = d.messages;
-        $('#n').text(d[0].department);
-        $('#column').html('');
-        for (var i = d.length - 1; i >= 0; i--) {
-          var node = document.createElement('tr'),
-              j = document.createElement('td');
-          j.innerHTML = d[i].description + ' | ' + d[i].department + d[i].grade;
-          node.appendChild(j);
-          $('#column').append(node);
-        };
-      }, 'json');
-      return false;
-    });
+
+    // $('#more-message-form').on('submit', 'form[data-pjax]', function(event) {
+    //   $.pjax.submit(event, '#pjax-container');
+    // });
+
     $('select').material_select();
   });
 </script>

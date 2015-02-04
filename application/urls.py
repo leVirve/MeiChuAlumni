@@ -23,12 +23,10 @@ app.add_url_rule('/content', view_func=views.content)
 app.add_url_rule('/photo', view_func=views.photo)
 app.add_url_rule('/blessings', view_func=views.list_messages)
 app.add_url_rule('/more', view_func=views.morepage)
-app.add_url_rule('/more/', 'more_message', view_func=views.more_messages, methods=['POST'])
+app.add_url_rule('/more', 'more_message', view_func=views.more_messages, methods=['POST'])
 app.add_url_rule('/blessings', 'new_message', view_func=views.new_message, methods=['POST'])
 app.add_url_rule('/blessings/update', view_func=views.update_message, methods=['POST'])
 
-# Memcache store queue
-app.add_url_rule('/task/counter_persist_incr', view_func=fastcounter.CounterPersistIncr.post, methods=['POST'])
 
 # Contrived admin-only view
 app.add_url_rule('/get/users/<int:uid>', 'get_users', view_func=views.get_users, methods=['GET', 'POST'])

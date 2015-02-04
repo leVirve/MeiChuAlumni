@@ -27,10 +27,10 @@
 <script>
   $(function() {
     var raw = [
-      {% for c in counts %}
+      {% for k in counts %}
       {
-          value: {{ c[1] }},
-          label: "{{ c[0] }}"
+          value: {{ k[0] }},
+          label: "{{ k[1] }}"
       },
       {% endfor %}
     ];
