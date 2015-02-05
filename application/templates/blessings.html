@@ -38,6 +38,7 @@
     $('#new-message-form').submit(function(){
       $.post($(this).attr('action'), $(this).serialize(), function(d) {
         toast('資料送出!', 4000);
+        $('#new-message-form').empty();
         var b = document.createElement('button');
         b.innerHTML = '分享';
         b.className = 'btn waves-effect waves-light right';
@@ -57,7 +58,6 @@
           });
         }
         $('#somewhere').append(b);
-        $('#new-message-form').clear();
       }, 'json');
       return false;
     });

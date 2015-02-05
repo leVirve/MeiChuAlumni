@@ -48,9 +48,6 @@ def more_messages():
     form = MessageForm()
     department = form.department.data
     messages = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(30)
-    #data = [dict(p.to_dict(include=[
-    #        'grade','timestamp','description'])
-    #        ) for p in messages]
     return pjax('messages.html',
                 messages=messages,
                 form=MessageForm())
@@ -119,7 +116,7 @@ def morepage():
     return pjax('messages.html', form=form)
 
 
-#@cache.cached(timeout=600, key_prefix='depart_counts')
+@cache.cached(timeout=600, key_prefix='depart_counts')
 def get_heading_department(num=10):
     counts = CounterDB.query().order(-CounterDB.val).fetch(10)
     return [(p.val, p.key.id().decode('utf-8')) for p in counts]
