@@ -36,16 +36,33 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
+          <input id="account" type="text" class="validate" name="account">
+          <label for="account">FB/Line 帳號 (選填)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
           <textarea class="materialize-textarea" name="description"></textarea>
           <label>祝福的話</label>
         </div>
+      </div>
+      <div class="row">
+        <p>
+        {% for error in form.recaptcha.errors %}
+        {{ error }}
+        {% endfor %}
+        {{ form.recaptcha }}
+        </p>
       </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">送出
           <i class="mdi-content-send right"></i>
         </button>
     </form>
     <div class="card-content">
-      <span class="card-title purple-text">Facebook 分享</span>
+      <span class="card-title purple-text">
+        <img src="http://icons.iconarchive.com/icons/uiconstock/socialmedia/512/Facebook-icon.png" align="absmiddle" style="width:30px">
+        Facebook 分享
+      </span>
       <p id="somewhere">與 Facebook 好友分享梅竹集氣活動可增加抽獎機率唷！</p>
     </div>
   </div>

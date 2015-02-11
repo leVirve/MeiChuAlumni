@@ -12,6 +12,7 @@ For example the *say_hello* handler, handling the URL route '/hello/<username>',
 from google.appengine.api import users
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 from google.appengine.datastore.datastore_query import Cursor
+from google.appengine.ext import ndb
 
 from flask import request, render_template, flash, url_for, redirect, jsonify
 
@@ -47,7 +48,8 @@ def list_messages():
 def more_messages():
     form = MessageForm()
     department = form.department.data
-    messages = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(30)
+    grade = form.grade.data
+    messages = MessageModel.query(ndb.AND(MessageModel.department==department, MessageModel.grade==grade)).order(-MessageModel.timestamp).fetch(30)
     return pjax('messages.html',
                 messages=messages,
                 form=MessageForm())
@@ -74,6 +76,7 @@ def new_message():
                     grade=int(form.grade.data),
                     phone=form.phone.data,
                     mail=form.mail.data,
+                    account=form.account.data
                     )
                 user.put()
             message.put()
@@ -116,19 +119,19 @@ def morepage():
     return pjax('messages.html', form=form)
 
 
-@cache.cached(timeout=600, key_prefix='depart_counts')
+@cache.cached(timeout=600) #, key_prefix='depart_counts')
 def get_heading_department(num=10):
     counts = CounterDB.query().order(-CounterDB.val).fetch(10)
     return [(p.val, p.key.id().decode('utf-8')) for p in counts]
 
 
-@cache.cached(timeout=600, key_prefix='depart_comments')
+#@cache.cached(timeout=600) #, key_prefix='depart_comments')
 def get_heading_depart_messages():
-    counts = get_heading_department()
-    messageset = {}
-    for val, g in counts:
-        department, grade = g[:-2], g[-2:]
-        messageset[department] = MessageModel.query(MessageModel.department==department).order(-MessageModel.timestamp).fetch(10)
+    messageset = {} 
+    departs = MessageModel.query(projection=["department"], distinct=True)
+    for m in departs:
+        d = m.department
+        messageset[d] = MessageModel.query(MessageModel.department == d).fetch(10)
     return messageset
 
 
@@ -149,9 +152,7 @@ def get_users(uid):
 def get_raffle_list():
     """ Get the list of user id and shared state for raffle """
     if request.method == "POST":
-        import datetime
-        period = datetime.datetime.now() - datetime.timedelta(weeks=1)
-        users = User.query().filter(User.timestamp >= period)
+        users = User.query()
         data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
         return jsonify(rafflelist=data)
     return render_template('admin.html')

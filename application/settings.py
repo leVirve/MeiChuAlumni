@@ -7,7 +7,7 @@ Important: Place your keys in the secret_keys.py module,
            which should be kept out of version control.
 
 """
-from secret_keys import CSRF_SECRET_KEY, SESSION_KEY
+from secret_keys import CSRF_SECRET_KEY, SESSION_KEY, RECAPTCHA_PUBLIC, RECAPTCHA_PRIVATE
 
 
 class Config(object):
@@ -16,6 +16,8 @@ class Config(object):
     CSRF_SESSION_KEY = SESSION_KEY
     # Flask-Cache settings
     CACHE_TYPE = 'gaememcached'
+    RECAPTCHA_PUBLIC_KEY = RECAPTCHA_PUBLIC
+    RECAPTCHA_PRIVATE_KEY = RECAPTCHA_PRIVATE
 
 
 class Development(Config):

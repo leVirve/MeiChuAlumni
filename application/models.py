@@ -28,6 +28,7 @@ class User(ndb.Model):
     grade       = ndb.IntegerProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
+    account     = ndb.StringProperty()
     shared      = ndb.BooleanProperty(default=False)
     timestamp   = ndb.DateTimeProperty(auto_now=True)
 

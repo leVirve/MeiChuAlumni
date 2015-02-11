@@ -13,5 +13,12 @@ indexes:
 - kind: MessageModel
   properties:
   - name: department
+  - name: grade
+  - name: timestamp
+    direction: desc
+
+- kind: MessageModel
+  properties:
+  - name: department
   - name: timestamp
     direction: desc

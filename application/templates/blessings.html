@@ -3,6 +3,7 @@
   <div class="col s12 offset-m1 m6">{% include 'form.html' %}</div>
 
   <div class="col s12 m4">
+    <h6 class="grey-text text-darken-2">各學系近期留言</h6>
     <div class="">
       <ul class="collapsible" data-collapsible="accordion">
       {% for department, messages in messageset.iteritems() %}
@@ -29,6 +30,11 @@
   </div>
 </div>
 </div>
+
+{% for m in messageset['物理系'] %}
+{{ m.description|e }} | {{ m.grade }} 級
+{% endfor %}
+
 
 <script>
   $(document).ready(function(){

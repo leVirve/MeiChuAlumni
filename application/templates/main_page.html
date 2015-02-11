@@ -1,19 +1,18 @@
 <div class="row" style="padding-top:20px;">
 
-  <div class="col s12 m5 l3">
-    <!-- <h5 class="grey-text text-darken-2 center"></h5> -->
+  <div class="col s12 m6 l4">
     <div class="card-image">
       <div class="center-align activator" style="padding-top:20px">
-        <canvas id="chartpie" width="380" height="380"></canvas>
-        <h5><a id="go4nthu" class="waves-effect waves-light btn-large white-text red" href="/blessings" pjax-data><i class="mdi-action-favorite right"></i>我要集氣</a></h5>
-        <p class="blue-text text-darken-4">人氣指數：<span id="ups"></span>
-        <br><a class="" href="/more" pjax-data> 看看其他系怎麼說</a>
+        <canvas id="chartpie" width="380" height="320"></canvas>
+        <a href="/more" style="font-size:1.2em;text-decoration:underline;" pjax-data>看看我們系怎麼說</a><br>
+        <p class="blue-text text-darken-2">
+        <a id="go4nthu" class="waves-effect waves-light btn-large white-text red brn tooltipped" href="/blessings" style="font-size:1.5em" data-position="right" data-delay="50" data-tooltip="集氣即可抽獎唷" pjax-data><i class="mdi-action-favorite right"></i>我要集氣</a>
         </p>
       </div>
     </div>
   </div>
 
-  <div class="col s12 m7 l5">
+  <div class="col s12 m6 l4">
     <h6 class="grey-text text-darken-2">最新留言</h6>
     {% include 'list_messages.html' %}
   </div>

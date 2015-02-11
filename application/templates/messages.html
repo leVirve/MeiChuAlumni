@@ -5,7 +5,7 @@
       <div class="card-content"><span class="card-title pink-text text-accent-4">想看看哪個系？</span></div>
 
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s8">
           <select class="_browser-default" name="department">
             <option value="" disabled selected>系別</option>
             {% for subfield in form.department %}
@@ -13,8 +13,13 @@
             {% endfor %}
           </select>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">送出<i class="mdi-content-send right"></i></button>
+        <div class="input-field col s4">
+          <select class="browser-default" name="grade">
+            <option value="" disabled selected>系級</option>
+          </select>
+        </div>
       </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">查詢<i class="mdi-content-send right"></i></button>
     </form>
 
 
@@ -25,7 +30,7 @@
       <li class="collection-header" style="">
         <div id="n" class="collapsible-header">
         {% if messages %}
-        {{ messages[0].department }}
+        {{ messages[0].department }} {{ messages[0].grade }}級
         {% else %}
         查詢結果
         {% endif %}
@@ -48,11 +53,9 @@
     $('.collapsible').collapsible({
       accordion : false
     });
-
-    // $('#more-message-form').on('submit', 'form[data-pjax]', function(event) {
-    //   $.pjax.submit(event, '#pjax-container');
-    // });
-
+    for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
+    for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
+    for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
     $('select').material_select();
   });
 </script>

@@ -36,8 +36,10 @@ function processChart(raw) {
           scaleShowLabels:false,
           scaleOverride : true,
           scaleStartValue : 0,
-          scaleSteps : 5,
-          scaleStepWidth : Math.max.apply(null, d) / 5,
+          scaleSteps : 6,
+          scaleStepWidth: Math.max.apply(null, d) / 5,
+          xAxisFontFamily: 'Microsoft JhengHei',
+          inGraphDataShow : true,
         },
         // opt = { responsive:true, scaleShowLabels:false },
         ctx = document.getElementById("chartpie").getContext("2d");

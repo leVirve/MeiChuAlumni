@@ -11,9 +11,10 @@ See: http://flask.pocoo.org/docs/patterns/wtforms/
 from flaskext import wtf
 from flaskext.wtf import validators
 from wtforms.ext.appengine.ndb import model_form
+from flaskext.wtf.recaptcha.fields import RecaptchaField
 
 from .models import MessageModel
-
+import secret_keys
 
 departments = [
     u"物理系",
@@ -73,9 +74,10 @@ class ClassicMessageForm(wtf.Form):
     phone       = wtf.StringField(u'聯絡電話', validators=[validators.Required()])
     mail        = wtf.StringField(u'聯絡信箱', validators=[validators.Required()])
     description = wtf.TextAreaField(u'祝福', validators=[validators.Required()])
+    recaptcha   = RecaptchaField()
 
 
-MessageForm = model_form(MessageModel, wtf.Form, field_args={
+MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
     'name': {
         'label': u'姓名',
         'description': 'Your name',
