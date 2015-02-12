@@ -125,10 +125,10 @@ def get_heading_department(num=10):
     return [(p.val, p.key.id().decode('utf-8')) for p in counts]
 
 
-#@cache.cached(timeout=600) #, key_prefix='depart_comments')
+@cache.cached(timeout=600) #, key_prefix='depart_comments')
 def get_heading_depart_messages():
     messageset = {} 
-    departs = MessageModel.query(projection=["department"], distinct=True)
+    departs = MessageModel.query(projection=["department", "description"])
     for m in departs:
         d = m.department
         messageset[d] = MessageModel.query(MessageModel.department == d).fetch(10)

@@ -4,26 +4,729 @@
 
   <div class="col s12 m4">
     <h6 class="grey-text text-darken-2">各學系近期留言</h6>
-    <div class="">
-      <ul class="collapsible" data-collapsible="accordion">
-      {% for department, messages in messageset.iteritems() %}
-      {% if messages %}
-        <li class="collection-header">
-          <div class="collapsible-header"><i class="mdi-social-whatshot"></i>{{ department }}</div>
-          <div class="collapsible-body" style="background:#ddd">
-          <table>
-          <tbody>
-          {% for m in messages %}
-          <tr>
-            <td>{{ m.description|e }} | {{ m.grade }} 級</td>
-          </tr>
-          {% endfor %}
-          </tbody>
-          </table>
+    <div>
+      <ul class="collapsible" data-collapsible="expandable">
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>理學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">物理系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['物理系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">數學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['數學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">化學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['化學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">統計學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['統計學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">天文研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['天文研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">理學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['理學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
           </div>
         </li>
-      {% endif %}
-      {% endfor %}
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>工學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">工學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['工學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">化學工程學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['化學工程學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">動力機械工程學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['動力機械工程學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">材料科學工程學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['材料科學工程學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">工業工程與工程管理學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['工業工程與工程管理學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">奈米工程與微系統研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['奈米工程與微系統研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">生物醫學工程研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生物醫學工程研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>電機資訊學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">電機工程學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['電機工程學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">資訊工程學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['資訊工程學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">電子工程研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['電子工程研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">通訊工程研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['通訊工程研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">光電工程研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['光電工程研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">資訊系統與應用研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['資訊系統與應用研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">電機資訊學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['電機資訊學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>人文社會學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">中國文學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['中國文學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">外國語文學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['外國語文學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">人文社會學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['人文社會學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">哲學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['哲學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">歷史研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['歷史研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">人類學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['人類學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">社會學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['社會學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">語言學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['語言學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">台灣文學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['台灣文學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>生命科學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">生命科學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生命科學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">醫學科學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['醫學科學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">生物科技研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生物科技研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">分子醫學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['分子醫學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">分子與細胞生物研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['分子與細胞生物研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">生物資訊與結構生物研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生物資訊與結構生物研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">系統神經科學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['系統神經科學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">生命科學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生命科學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>原子科學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">工程與系統科學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['工程與系統科學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">生醫工程與環境科學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['生醫工程與環境科學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">核子工程與科學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['核子工程與科學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">原子科學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['原子科學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>科技管理學院</div>
+          <div class="collapsible-body">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">經濟學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['經濟學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">計量財務金融學系</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['計量財務金融學系'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">科技管理研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['科技管理研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">服務科學研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['服務科學研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">科技法律研究所</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['科技法律研究所'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">科技管理學院學士班</div>
+                <div class="collapsible-body" style="background:#ddd">
+                    <table>
+                      <tbody>
+                      {% for m in messageset['科技管理學院學士班'] %}
+                      <tr>
+                        <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>不分系</div>
+          <div class="collapsible-body">
+            <table>
+              <tbody>
+              {% for m in messageset['不分系'] %}
+              <tr>
+                <td>{{ m.description|e }} | {{ m.grade }} 級</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -31,16 +734,8 @@
 </div>
 </div>
 
-{% for m in messageset['物理系'] %}
-{{ m.description|e }} | {{ m.grade }} 級
-{% endfor %}
-
-
 <script>
   $(document).ready(function(){
-    $('.collapsible').collapsible({
-      accordion : false
-    });
     $('#new-message-form').submit(function(){
       $.post($(this).attr('action'), $(this).serialize(), function(d) {
         toast('資料送出!', 4000);

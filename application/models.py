@@ -16,7 +16,7 @@ class MessageModel(ndb.Model):
     grade       = ndb.IntegerProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
-    description = ndb.TextProperty(required=True)
+    description = ndb.StringProperty(required=True)
     shared      = ndb.BooleanProperty(default=False)
     timestamp   = ndb.DateTimeProperty(auto_now_add=True)
 
