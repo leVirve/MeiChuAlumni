@@ -30,7 +30,7 @@
       <li class="collection-header" style="">
         <div id="n" class="collapsible-header">
         {% if messages %}
-        {{ messages[0].department }} {{ messages[0].grade }}級
+        {{ messages[0].department }} {{ '%02d' % messages[0].grade }}級
         {% else %}
         查詢結果
         {% endif %}

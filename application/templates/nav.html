@@ -1,14 +1,22 @@
 <style>
 </style>
-<nav id="header" class="z-depth-5">
-  <div class="nav-wrapper" style="background:url(static/img/header.jpg);background-size:100%;height:80px;line-height:80px;border-bottom:#6D097E 3px solid;">
-    <a href="#" class="brand-logo" style="padding-left:15px;">許梅竹一個未來</a>
-    <ul id="nav-mobile" class="side-nav">
-      <li><a href="/index" data-pjax style="height:80px;padding:10px"><h5>首頁</h5></a></li>
-      <li><a href="/content" data-pjax style="height:80px;padding:10px"><h5>活動說明</h5></a></li>
-      <li><a href="/blessings" data-pjax style="height:80px;padding:10px"><h5>集氣</h5></a></li>
-      <li><a href="/photo" data-pjax style="height:80px;padding:10px"><h5>梅竹回憶</h5></a></li>
-    </ul>
-    <a class="button-collapse" href="#" data-activates="nav-mobile"><i class="mdi-navigation-menu"></i></a>
+<nav id="header" class="z-depth-5" style="background:url(static/img/header.jpg);background-size:100%;height:80px;line-height:80px;border-bottom:#6D097E 3px solid;">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a href="#" class="brand-logo" style="padding-left:15px;">許梅竹一個未來</a>
+      <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/index" data-pjax style="height:80px;padding:10px"><h5>首頁</h5></a></li>
+        <li><a href="/content" data-pjax style="height:80px;padding:10px"><h5>活動說明</h5></a></li>
+        <li><a href="/blessings" data-pjax style="height:80px;padding:10px"><h5>集氣</h5></a></li>
+        <li><a href="/photo" data-pjax style="height:80px;padding:10px"><h5>梅竹回憶</h5></a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-nav">
+        <li><a href="/index">首頁</a></li>
+        <li><a href="/content">活動說明</a></li>
+        <li><a href="/blessings">集氣</a></li>
+        <li><a href="/photo">梅竹回憶</a></li>
+      </ul>
+    </div>
   </div>
 </nav>

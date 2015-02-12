@@ -33,7 +33,7 @@ cache = Cache(app)
 
 #@cache.cached(timeout=600)
 def home():
-    messages = MessageModel.query().order(-MessageModel.timestamp).fetch(7)
+    messages = MessageModel.query().order(-MessageModel.timestamp).fetch(5)
     return pjax('main_page.html',
                 messages=messages,
                 counts=get_heading_department())

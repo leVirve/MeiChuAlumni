@@ -46,6 +46,13 @@
           <label>寫寫你對梅竹賽的回憶/期許</label>
         </div>
       </div>
+
+<p>
+{% for error in form.recaptcha.errors %}
+{{ error }}
+{% endfor %}
+{{ form.recaptcha }}
+</p>
         <button class="btn waves-effect waves-light" type="submit" name="action">送出
           <i class="mdi-content-send right"></i>
         </button>

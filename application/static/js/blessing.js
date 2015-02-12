@@ -42,6 +42,7 @@ function processChart(raw) {
           scaleFontFamily: '微軟正黑體',
           scaleFontSize: 16,
           inGraphDataShow : true,
+          graphTitleFontFamily: '微軟正黑體',
         },
         ctx = document.getElementById("chartpie").getContext("2d");
     raw.sort(function(a,b){return b.value-a.value});

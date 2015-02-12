@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="row">
-      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ message.grade|e }}級</h6>
+      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ '%02d' % message.grade }}級</h6>
     </div>
   </li>
   {% endfor %}
