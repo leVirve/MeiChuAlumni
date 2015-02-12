@@ -75,7 +75,7 @@ class ClassicMessageForm(wtf.Form):
     mail        = wtf.StringField(u'聯絡信箱', validators=[validators.Required()])
     account     = wtf.StringField(u'聯絡')
     description = wtf.TextAreaField(u'祝福', validators=[validators.Required()])
-    #recaptcha   = RecaptchaField()
+    recaptcha   = RecaptchaField()
 
 
 MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
