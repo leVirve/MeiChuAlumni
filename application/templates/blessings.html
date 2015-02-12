@@ -759,7 +759,7 @@
           });
         }
         $('#somewhere').append(b);
-      }, 'json');
+      }, 'json').fail(function() {alert("超過填寫時間，請重新整理，謝謝 > <");location.reload(true)});
       return false;
     });
     for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};

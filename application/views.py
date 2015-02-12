@@ -90,6 +90,7 @@ def new_message():
             return jsonify(mid=message_id)
         except ValueError:
             return redirect(url_for('list_messages'))
+    return jsonify(error='Please refill the form'), 400
 
 
 def update_message():

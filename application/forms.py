@@ -9,7 +9,7 @@ See: http://flask.pocoo.org/docs/patterns/wtforms/
 
 """
 from flaskext import wtf
-from flaskext.wtf import validators
+from flaskext.wtf import validators, recaptcha
 from wtforms.ext.appengine.ndb import model_form
 from flaskext.wtf.recaptcha.fields import RecaptchaField
 
@@ -73,8 +73,9 @@ class ClassicMessageForm(wtf.Form):
     grade       = wtf.IntegerField(u'系級')
     phone       = wtf.StringField(u'聯絡電話', validators=[validators.Required()])
     mail        = wtf.StringField(u'聯絡信箱', validators=[validators.Required()])
+    account     = wtf.StringField(u'聯絡')
     description = wtf.TextAreaField(u'祝福', validators=[validators.Required()])
-    recaptcha   = RecaptchaField()
+    #recaptcha   = RecaptchaField()
 
 
 MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
@@ -103,6 +104,9 @@ MessageForm = model_form(MessageModel, ClassicMessageForm, field_args={
         'label': u'聯絡信箱',
         'description': u'聯絡必要資料',
         'validators': [validators.Required(), validators.Email()]
+        },
+    'account': {
+        'label': u'聯絡'
         },
     'description': {
         'label': u'祝福的話',

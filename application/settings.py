@@ -18,6 +18,7 @@ class Config(object):
     CACHE_TYPE = 'gaememcached'
     RECAPTCHA_PUBLIC_KEY = RECAPTCHA_PUBLIC
     RECAPTCHA_PRIVATE_KEY = RECAPTCHA_PRIVATE
+    RECAPTCHA_USE_SSL = True
 
 
 class Development(Config):

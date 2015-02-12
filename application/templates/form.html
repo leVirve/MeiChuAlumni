@@ -46,14 +46,6 @@
           <label>祝福的話</label>
         </div>
       </div>
-      <div class="row">
-        <p>
-        {% for error in form.recaptcha.errors %}
-        {{ error }}
-        {% endfor %}
-        {{ form.recaptcha }}
-        </p>
-      </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">送出
           <i class="mdi-content-send right"></i>
         </button>
