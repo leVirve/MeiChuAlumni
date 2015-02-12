@@ -31,17 +31,18 @@ function processChart(raw) {
             data:d
       }]
     }
-    var opt = { responsive:true,
+    var opt = {
+          responsive:true,
           graphTitle: "前十大留言系級",
           scaleShowLabels:false,
           scaleOverride : true,
           scaleStartValue : 0,
           scaleSteps : 6,
           scaleStepWidth: Math.max.apply(null, d) / 5,
-          xAxisFontFamily: 'Microsoft JhengHei',
+          scaleFontFamily: '微軟正黑體',
+          scaleFontSize: 16,
           inGraphDataShow : true,
         },
-        // opt = { responsive:true, scaleShowLabels:false },
         ctx = document.getElementById("chartpie").getContext("2d");
     raw.sort(function(a,b){return b.value-a.value});
     var bar = new Chart(ctx).HorizontalBar(data, opt), total = 0;

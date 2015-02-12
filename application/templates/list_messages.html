@@ -3,19 +3,19 @@
   {% for message in messages %}
   <li class="card-panel grey lighten-5 z-depth-1" style="margin:0.1rem 0px 0.1rem">
     <div class="row valign-wrapper">
-      <time class="col s3 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}" style="font-size:12px;">
+      <time class="col s4 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}" style="font-size:12px;">
         {{ message.timestamp.strftime('%b %d') }}<br>
         {{ message.timestamp.strftime('%I:%M %p') }}
       </time>
       <div class="cbp_tmicon"></div>
-      <div class="col s6">
+      <div class="col s8">
         <span class="grey-text text-darken-3">
             <p>{{ message.description|e }}</p>
         </span>
       </div>
-      <div class="col s3">
-        <h6 class="center-align">{{ message.department|e }}<br>{{ message.grade|e }}級</h6>
-      </div>
+    </div>
+    <div class="row">
+      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ message.grade|e }}級</h6>
     </div>
   </li>
   {% endfor %}

@@ -1,24 +1,26 @@
 <div class="row" style="padding-top:20px;">
 
-  <div class="col s12 m6 l4">
+  <div class="col s12 m6 l5">
     <div class="card-image">
       <div class="center-align activator" style="padding-top:20px">
-        <canvas id="chartpie" width="380" height="320"></canvas>
+        <canvas id="chartpie" width="380" height="250"></canvas>
         <a href="/more" style="font-size:1.2em;text-decoration:underline;" pjax-data>看看我們系怎麼說</a><br>
         <p class="blue-text text-darken-2">
-        <a id="go4nthu" class="waves-effect waves-light btn-large white-text red brn tooltipped" href="/blessings" style="font-size:1.5em" data-position="right" data-delay="50" data-tooltip="集氣即可抽獎唷" pjax-data><i class="mdi-action-favorite right"></i>我要集氣</a>
+        <a id="go4nthu" class="waves-effect waves-light btn-large white-text red brn tooltipped" href="/blessings" style="font-size:1.5em" data-position="right" data-delay="50" data-tooltip="集氣即可抽獎唷" pjax-data><i class="mdi-action-favorite right"></i>我要集氣</a><br>
+        ✩參加集氣活動，萬元獎金等你拿✩
         </p>
       </div>
     </div>
   </div>
 
-  <div class="col s12 m6 l4">
+  <div class="col s12 m6 l3">
     <h6 class="grey-text text-darken-2">最新留言</h6>
     {% include 'list_messages.html' %}
   </div>
 
   <div class="col s12 m12 l4">
     {% include 'sideview.html' %}
+  <p class="right"><a href="https://www.facebook.com/meichuwin"><img src="static/img/FB_FindUsOnFacebook-144.png"></a></p>
   </div>
 
 </div>
@@ -35,5 +37,6 @@
     ];
     processChart(raw);
     $('.slider').slider();
+    $('.tooltipped').tooltip({delay: 50});
   });
 </script>

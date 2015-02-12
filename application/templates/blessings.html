@@ -755,7 +755,7 @@
                 function(){}
               );
             }
-            location.reload();
+            location.reload(true);
           });
         }
         $('#somewhere').append(b);
@@ -766,5 +766,8 @@
     for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
     for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
     $('select').material_select();
+    $('.collapsible').collapsible({
+      accordion : false
+    });
   });
 </script>
