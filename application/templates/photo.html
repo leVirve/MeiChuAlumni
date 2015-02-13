@@ -1,36 +1,162 @@
-
 <style media="screen">
+.hidden { display: none; }
 .item{
   box-shadow: 10px 10px 5px #888888;
   max-width: 300px;
   max-height: 300px;
 }
+.card-image .album span {
+  font-size: 5em;
+  font-weight: 500;
+}
+#ages .col { padding: 0; }
+#ages .card {
+  background-color: #000;
+  border-top:7px solid;
+  border-right:7px solid;
+  border-left:7px solid;
+}
 </style>
 
-
 <div class="container row" style="padding-top:20px;">
-  <h2 class="pink-text text-accent-5">梅竹賽活動照片</h2>
-  <div class="col s6 m6">
-    <div class="card">
-      <div class="card-image">
-        <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
-        <span class="card-title"><a href="https://picasaweb.google.com/data/feed/base/user/103449317412346247800/albumid/6112595503038439665" class="album pink-text text-accent-4">乙未梅竹</a></span>
-      </div>
+  <div style="row">
+    <div class="col s8">
+      <h2 class="pink-text text-accent-5" style="font-family:'標楷體' !important">梅竹回憶</h2>
+      <h6 class="pink-text text-accent-2" style="font-family:'標楷體' !important">還記得那加油到喉嚨沙啞的青春歲月嗎?  讓這些珍貴的照片帶我們走進回憶的長廊….</h6>
     </div>
-  </div>
-  <div class="col s6 m6">
-    <div class="card">
-      <div class="card-image">
-        <img src="https://lh3.googleusercontent.com/-PMJ29t60P4g/VNRNSwwrHsI/AAAAAAAAABo/wPBxPoauq7w/gallery_2880_9020784_55491.jpg">
-        <span class="card-title"><a href="https://picasaweb.google.com/data/feed/base/user/103449317412346247800/albumid/6112595503038439665" class="album pink-text text-accent-4">甲午梅竹</a></span>
-      </div>
-    </div>
+    <img class="col s4" src="static/img/banner.png" width="20%">
   </div>
 
+  <div class="col s12">
+    <select>
+      <option value="" disabled selected>年份選擇</option>
+      <option value="1">www</option>
+      <option value="2">WWW</option>
+      <option value="3">WWW</option>
+      <option value="4">WWW</option>
+      <option value="5">WWW</option>
+      <option value="6">WWW</option>
+      <option value="7">WWW</option>
+    </select>
+  </div>
 </div>
 
+<div class="section white">
+  <div id="wban" class="row">
+    <div id="prev" class="hidden" style="padding:20px;">
+      <a class="btn-floating btn-large waves-effect waves-light orange left"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
+    </div>
+    <div id="ages" class="col s12 offset-m1 m10">
+      <div class="col s6 m4 center">
+        <div class="card">
+          <div class="card-image">
+            <a href="#60_70" class="album">
+              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <span class="card-title pink-text text-accent-4">'60 & 70</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-<div id="output">
+      <div class="col s6 m4">
+        <div class="card">
+          <div class="card-image">
+            <a href="#80" class="album">
+              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <span class="card-title pink-text text-accent-4">'80</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6 m4">
+        <div class="card">
+          <div class="card-image">
+            <a href="#90" class="album">
+              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <span class="card-title pink-text text-accent-4">'90</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6 offset-m2 m4">
+        <div class="card">
+          <div class="card-image">
+            <a href="#00" class="album">
+              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <span class="card-title pink-text text-accent-4">'00</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6 m4">
+        <div class="card">
+          <div class="card-image">
+            <a href="#10" class="album">
+              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <span class="card-title pink-text text-accent-4">'10</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="years" class="row">
+    <div id="60_70" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'60 & 70年</h4></li>
+        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+      </ul>
+    </div>
+    <div id="80" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'80年</h4></li>
+        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+      </ul>
+    </div>
+    <div id="90" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'90年</h4></li>
+        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+      </ul>
+    </div>
+    <div id="00" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'00年</h4></li>
+        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+      </ul>
+    </div>
+    <div id="10" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'10年</h4></li>
+        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
+        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+      </ul>
+    </div>
+  </div>
+  <!-- Result -->
+  <div id="mgallery" class="col s12 center">
+    <h3 class="pink-text text-accent-5">照片集</h3>
+    <div id="output"></div>
+  </div>
 
 </div>
 
@@ -49,7 +175,59 @@
 <script>
 $(function(){
 
-  $('.album').click(function(){getalbum($(this).attr('href'));return false;});
+  var albums = [
+    '1',
+    '2',
+    '3'
+  ]
+  $('select').material_select();
+  $('select').change(function () {
+    var str = $("select option:selected").text();
+    var val = $("select option:selected").attr('value');
+    console.log('Choose ' + str + ' displays album year#' + val);
+    displayphoto(val);
+  });
+  $('.collection-item').click(function () {
+    var val = $(this).attr('href');
+    console.log('Displays album year#' + val);
+    displayphoto(val);
+  });
+  $('.album').click(function(){
+    target = $(this).attr('href');
+    $('#ages')
+      .addClass('animated bounceOutLeft')
+      .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $('#ages').addClass('hidden');
+        $('#prev').removeClass('hidden');
+        $('#prev').attr('databt', target);
+        $(target).detach().appendTo('#wban');
+        $(target).removeClass('animated fadeOut');
+        $(target).addClass('animated fadeIn');
+        $(target).removeClass('hidden');
+      });
+    return false;
+  });
+  $('#prev').click(function(){
+    target = $(this).attr('databt');
+    $(target).addClass('hidden');
+    $('#prev').addClass('hidden');
+    $('#ages').removeClass('hidden');
+    $('#ages')
+      .removeClass('animated bounceOutLeft')
+      .addClass('animated bounceInLeft')
+      .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $(target).detach().appendTo('#years');
+        $(target).addClass('animated fadeOut');
+      });
+    return false;
+  });
+
+  function displayphoto(year_num) {
+    getalbum(albums['year_num']);
+    $('html, body').animate({
+        scrollTop: $("#mgallery").offset().top
+    }, 2000);
+  }
 
   function getalbum(url) {
     $.ajax({
@@ -79,7 +257,6 @@ $(function(){
 </script>
 <script>
   var $container = $('#_container');
-  // initialize
   $container.imagesLoaded( function() {
     $container.masonry({
       itemSelector: '.item',

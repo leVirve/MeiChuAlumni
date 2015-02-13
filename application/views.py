@@ -22,10 +22,11 @@ from application import app
 from decorators import login_required, admin_required
 from forms import MessageForm, departments
 from models import MessageModel, User, CounterDB
-import fastcounter
+from normalize import normalize
 
 import json
 import operator
+
 
 # Flask-Cache (configured to use App Engine Memcache API)
 cache = Cache(app)
@@ -96,15 +97,15 @@ def new_message():
 def update_message():
     if request.method == "POST":
         message_id = int(request.form.get('d'))
-        message_future = MessageModel.get_by_id(message_id)
+        message = MessageModel.get_by_id(message_id)
         user = User.query(User.phone == message.phone).get()
-        message = message_future.get_result()
         if message and request.form.get('c'):
             message.shared = True
             user.shared = True
             message.put()
             user.put()
             return redirect(url_for('list_messages'), 302)
+        return redirect(url_for('list_messages'), 400)
 
 
 def photo():
@@ -122,9 +123,16 @@ def morepage():
 
 @cache.cached(timeout=600) #, key_prefix='depart_counts')
 def get_heading_department(num=10):
+    '''
+    counts = CounterDB.query()
+    result = []
+    for c in counts:
+        key = p.key.id()
+        result.append((c / normalize[key], key.decode('utf-8')))
+    return result
+    '''
     counts = CounterDB.query().order(-CounterDB.val).fetch(10)
     return [(p.val, p.key.id().decode('utf-8')) for p in counts]
-
 
 @cache.cached(timeout=600) #, key_prefix='depart_comments')
 def get_heading_depart_messages():

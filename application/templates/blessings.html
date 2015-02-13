@@ -755,7 +755,7 @@
                 function(){}
               );
             }
-            location.reload();
+            location.replace('index');
           });
         }
         $('#somewhere').append(b);
@@ -767,7 +767,7 @@
     for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
     $('select').material_select();
     $('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+      accordion : false
     });
   });
 </script>
