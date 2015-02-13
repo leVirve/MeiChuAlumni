@@ -13,7 +13,7 @@ class MessageModel(ndb.Model):
     """Message Model"""
     name        = ndb.StringProperty(required=True)
     department  = ndb.StringProperty(required=True)
-    grade       = ndb.IntegerProperty(required=True)
+    grade       = ndb.StringProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
     description = ndb.StringProperty(required=True)
@@ -25,7 +25,7 @@ class User(ndb.Model):
     """ User Model """
     name        = ndb.StringProperty(required=True)
     department  = ndb.StringProperty(required=True)
-    grade       = ndb.IntegerProperty(required=True)
+    grade       = ndb.StringProperty(required=True)
     phone       = ndb.StringProperty(required=True)
     mail        = ndb.StringProperty(required=True)
     account     = ndb.StringProperty()

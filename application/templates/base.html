@@ -43,7 +43,11 @@
     {% include 'footer.html' %}
   </footer>
 
-
+  <script type="text/javascript">
+  $(function() {
+    $(document).pjax('a[data-pjax]', '#main');
+  });
+  </script>
   {{ profiler_includes|safe }}
 </body>
 </html>

@@ -3,9 +3,14 @@
   {% for message in messages %}
   <li class="card-panel grey lighten-5 z-depth-1" style="margin:0.1rem 0px 0.1rem">
     <div class="row valign-wrapper">
-      <time class="col s4 deep-orange-text" datetime="{{ message.timestamp.strftime('%b %d, %Y %I:%M %p') }}" style="font-size:12px;">
-        {{ message.timestamp.strftime('%b %d') }}<br>
-        {{ message.timestamp.strftime('%I:%M %p') }}
+      <time class="col s4 deep-orange-text" style="font-size:12px;">
+        <script>
+        var options1 = { month: "short", day: "numeric"},
+            options2 = { hour: "2-digit", minute: "2-digit" },
+            date = new Date("{{ message.timestamp.isoformat() }}Z");
+        document.write(date.toLocaleDateString("zh-tw", options1) + '<br>');
+        document.write(date.toLocaleTimeString("zh-tw", options2));
+        </script>
       </time>
       <div class="cbp_tmicon"></div>
       <div class="col s8">
@@ -15,7 +20,7 @@
       </div>
     </div>
     <div class="row">
-      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ '%02d' % message.grade }}級</h6>
+      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ message.grade }}級</h6>
     </div>
   </li>
   {% endfor %}

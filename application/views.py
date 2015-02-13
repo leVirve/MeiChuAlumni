@@ -32,8 +32,9 @@ import operator
 cache = Cache(app)
 
 
-#@cache.cached(timeout=600)
+@cache.cached(timeout=30)
 def home():
+    # may cause pjax error in QUERY ???!!
     messages = MessageModel.query().order(-MessageModel.timestamp).fetch(5)
     return pjax('main_page.html',
                 messages=messages,
@@ -64,7 +65,7 @@ def new_message():
             message = MessageModel(
                     name=form.name.data,
                     department=form.department.data,
-                    grade=int(form.grade.data),
+                    grade=form.grade.data,
                     phone=form.phone.data,
                     mail=form.mail.data,
                     description=form.description.data,
@@ -74,20 +75,20 @@ def new_message():
                 user = User(
                     name=form.name.data,
                     department=form.department.data,
-                    grade=int(form.grade.data),
+                    grade=form.grade.data,
                     phone=form.phone.data,
                     mail=form.mail.data,
                     account=form.account.data
                     )
+                key_string = u'%s%s' % (form.department.data, form.grade.data)
+                counter = CounterDB.get_by_id(key_string)
+                if counter is None:
+                    counter = CounterDB(id=key_string)
+                counter.val += 1
+                counter.put()
                 user.put()
             message.put()
             message_id = message.key.id()
-            key_string = u'%s%d' % (form.department.data, form.grade.data)
-            counter = CounterDB.get_by_id(key_string)
-            if counter is None:
-                counter = CounterDB(id=key_string)
-            counter.val += 1
-            counter.put()
             return jsonify(mid=message_id)
         except ValueError:
             return redirect(url_for('list_messages'))
@@ -123,16 +124,17 @@ def morepage():
 
 @cache.cached(timeout=600) #, key_prefix='depart_counts')
 def get_heading_department(num=10):
-    '''
+    
     counts = CounterDB.query()
     result = []
     for c in counts:
-        key = p.key.id()
-        result.append((c / normalize[key], key.decode('utf-8')))
-    return result
-    '''
-    counts = CounterDB.query().order(-CounterDB.val).fetch(10)
-    return [(p.val, p.key.id().decode('utf-8')) for p in counts]
+        key = u'%s' % c.key.id().decode('utf8')
+        if key in normalize:
+            val = c.val * 100 / normalize[key]
+            if val > 0: result.append((val, key))
+    result = sorted(result, key=operator.itemgetter(0), reverse=True)
+    return result[:10]
+    
 
 @cache.cached(timeout=600) #, key_prefix='depart_comments')
 def get_heading_depart_messages():

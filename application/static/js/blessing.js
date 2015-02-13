@@ -33,7 +33,7 @@ function processChart(raw) {
     }
     var opt = {
           responsive:true,
-          graphTitle: "前十大留言系級",
+          graphTitle: "前十大留言系級(按各系級百分比)",
           scaleShowLabels:false,
           scaleOverride : true,
           scaleStartValue : 0,
@@ -54,5 +54,4 @@ function processChart(raw) {
 
 $(function() {
   $(".button-collapse").sideNav();
-  $(document).pjax('a[data-pjax]', '#main');
 });
