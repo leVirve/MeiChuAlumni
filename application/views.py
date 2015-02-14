@@ -9,6 +9,7 @@ For example the *say_hello* handler, handling the URL route '/hello/<username>',
   must be passed *username* as the argument.
 
 """
+from __future__ import division
 from google.appengine.api import users
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 from google.appengine.datastore.datastore_query import Cursor
@@ -126,7 +127,6 @@ def morepage():
 
 @cache.cached(timeout=600) #, key_prefix='depart_counts')
 def get_heading_department(num=10):
-    
     counts = CounterDB.query()
     result, counter = [], 0
     for c in counts:
@@ -155,6 +155,18 @@ def admin_only():
     return 'admin_page'
 
 
+def get_heading_department_none_cached(num):
+    counts = CounterDB.query()
+    result = []
+    for c in counts:
+        key, val = u'%s' % c.key.id().decode('utf8'), c.val
+        if key in normalize:
+            val = val * 100 / normalize[key]
+            if val > 0: result.append((val, key))
+    result = sorted(result, key=operator.itemgetter(0), reverse=True)
+    return result[:num]
+
+
 @admin_required
 def get_users(uid):
     if uid:
@@ -166,8 +178,11 @@ def get_users(uid):
 def get_raffle_list():
     """ Get the list of user id and shared state for raffle """
     if request.method == "POST":
-        users = User.query()
-        data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
+        candidates = get_heading_department_none_cached(3)
+        for candidate in candidates:
+            department, grade = candidate[1][:-2], candidate[1][-2:]
+            users = User.query()
+            data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
         return jsonify(rafflelist=data)
     return render_template('admin.html')
 

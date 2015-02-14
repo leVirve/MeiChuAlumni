@@ -2,8 +2,7 @@
 .hidden { display: none; }
 .item{
   box-shadow: 4px 6px 17px 0px rgba(111, 185, 173, 0.75);;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 25%;
 }
 .card-image .album span {
   font-size: 3em;
@@ -47,9 +46,14 @@
       <option value="1990">1990</option>
       <option value="1992">1992</option>
       <option value="1999">1999</option>
+      <option value="2002">2002</option>
       <option value="2007">2007</option>
       <option value="2008">2008</option>
-      <option value="2012">2009</option>
+      <option value="2009">2009</option>
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2014">2014</option>
     </select>
   </div>
 </div>
@@ -63,9 +67,19 @@
       <div class="col s6 m4 center">
         <div class="card">
           <div class="card-image">
-            <a href="#60_70" class="album">
+            <a href="#60" class="album">
+              <img src="https://lh4.googleusercontent.com/-ZXqjzw1NxZE/VN8PQBKM_hI/AAAAAAAACg4/fUUObCcHsog/s640/306-1969-003-008.jpg">
+              <span class="card-title pink-text text-accent-4">'60</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col s6 m4 center">
+        <div class="card">
+          <div class="card-image">
+            <a href="#70" class="album">
               <img src="https://lh4.googleusercontent.com/-UEXecfB8s04/VN6vJ7vWIPI/AAAAAAAAAPA/DOcWX_FJL5s/s400/306-1970-003-003.jpg">
-              <span class="card-title pink-text text-accent-4">'60 & 70</span>
+              <span class="card-title pink-text text-accent-4">'70</span>
             </a>
           </div>
         </div>
@@ -86,18 +100,18 @@
         <div class="card">
           <div class="card-image">
             <a href="#90" class="album">
-              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <img src="https://lh6.googleusercontent.com/-dbZ4WvzXcWI/VN8UJULJl3I/AAAAAAAACgw/c8FNL-TY6dc/s640/306-1999-003-154.jpg">
               <span class="card-title pink-text text-accent-4">'90</span>
             </a>
           </div>
         </div>
       </div>
 
-      <div class="col s6 offset-m2 m4">
+      <div class="col s6 m4">
         <div class="card">
           <div class="card-image">
             <a href="#00" class="album">
-              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <img src="https://lh4.googleusercontent.com/-BeqN7DBY35c/VN8XwR73fNI/AAAAAAAACiM/Uon7NPNP4hs/s640/52809_6a578d89.jpg">
               <span class="card-title pink-text text-accent-4">'00</span>
             </a>
           </div>
@@ -108,7 +122,7 @@
         <div class="card">
           <div class="card-image">
             <a href="#10" class="album">
-              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <img src="https://lh5.googleusercontent.com/--phkl_kUOjk/VN8XlvWbmTI/AAAAAAAAChw/hgdnck7yoXI/s640/18240_193a0cc6.jpg">
               <span class="card-title pink-text text-accent-4">'10</span>
             </a>
           </div>
@@ -124,10 +138,15 @@
 </div>
 
   <div id="years" class="row">
-    <div id="60_70" class="col s12 offset-m2 m8 hidden">
+    <div id="60" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
-        <li class="collection-header purple-text"><h4>'60 & 70年</h4></li>
+        <li class="collection-header purple-text"><h4>'60年</h4></li>
         <a href="#1969" class="collection-item purple-text text-lighten-2">1969</a>
+      </ul>
+    </div>
+    <div id="70" class="col s12 offset-m2 m8 hidden">
+      <ul class="collection with-header">
+        <li class="collection-header purple-text"><h4>'70年</h4></li>
         <a href="#1970" class="collection-item purple-text text-lighten-2">1970</a>
         <a href="#1971" class="collection-item purple-text text-lighten-2">1971</a>
         <a href="#1972" class="collection-item purple-text text-lighten-2">1972</a>
@@ -158,6 +177,7 @@
     <div id="00" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'00年</h4></li>
+        <a href="#2002" class="collection-item purple-text text-lighten-2">2002</a>
         <a href="#2007" class="collection-item purple-text text-lighten-2">2007</a>
         <a href="#2008" class="collection-item purple-text text-lighten-2">2008</a>
         <a href="#2009" class="collection-item purple-text text-lighten-2">2009</a>
@@ -166,7 +186,10 @@
     <div id="10" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'10年</h4></li>
+        <a href="#2010" class="collection-item purple-text text-lighten-2">2010</a>
+        <a href="#2011" class="collection-item purple-text text-lighten-2">2011</a>
         <a href="#2012" class="collection-item purple-text text-lighten-2">2012</a>
+        <a href="#2014" class="collection-item purple-text text-lighten-2">2014</a>
       </ul>
     </div>
   </div>
@@ -206,9 +229,14 @@ $(function(){
     '1990': '6115598401609043777',
     '1992': '6115600686302924257',
     '1999': '6115603458678277489',
+    '2002': '6115621783108154177',
     '2007': '6115603405518471441',
     '2008': '6115607633801282337',
     '2009': '6115610683922994145',
+    '2010': '6115615740022461633',
+    '2011': '6115620047906568113',
+    '2012': '6115624415921608353',
+    '2014': '6115626489795883937',
   }
   $('select').material_select();
   $('select').change(function () {
@@ -277,21 +305,18 @@ $(function(){
             $('#template').tmpl({
                 photos: photos,
             }).appendTo('#output');
+            var $container = $('#_container');
+            $container.imagesLoaded( function() {
+              $container.masonry({
+                itemSelector: '.item',
+                columWidth: 200,
+                isAnimated: true
+              });
+            });
         },
         error: function(){
         }
     });
   }
 });
-</script>
-<script>
-  var $container = $('#_container');
-  $container.imagesLoaded( function() {
-    // $('.materialboxed').materialbox();
-    $container.masonry({
-      itemSelector: '.item',
-      columWidth: 200,
-      isAnimated: true
-    });
-  });
 </script>

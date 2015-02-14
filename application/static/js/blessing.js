@@ -21,7 +21,7 @@ function processChart(raw) {
     var COLORS = ["#46BFBD","#43B4DE","#FDB45C","#E4BF33","#949FB1","#4D5360","#46BFBD","#43B4DE","#FDB45C","#E4BF33","#949FB1","#4D5360"],
         l = [], d = [];
     for (var i = choosen.length - 1; i >= 0 ;i--) {
-      d.push(choosen[i].value);
+      d.push(Math.round(choosen[i].value * 100) / 100);
       l.push(choosen[i].label);
     };
     var data = {
