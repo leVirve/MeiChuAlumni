@@ -1,12 +1,12 @@
 <style media="screen">
 .hidden { display: none; }
 .item{
-  box-shadow: 10px 10px 5px #888888;
+  box-shadow: 4px 6px 17px 0px rgba(111, 185, 173, 0.75);;
   max-width: 300px;
   max-height: 300px;
 }
 .card-image .album span {
-  font-size: 5em;
+  font-size: 3em;
   font-weight: 500;
 }
 #ages .col { padding: 0; }
@@ -16,12 +16,13 @@
   border-right:7px solid;
   border-left:7px solid;
 }
+#ages .card img { height: 250px; }
 </style>
 
 <div class="container row" style="padding-top:20px;">
   <div style="row">
     <div class="col s8">
-      <h2 class="pink-text text-accent-5" style="font-family:'標楷體' !important">梅竹回憶</h2>
+      <h3 class="pink-text text-accent-5" style="font-family:'標楷體' !important">梅竹回憶</h3>
       <h6 class="pink-text text-accent-2" style="font-family:'標楷體' !important">還記得那加油到喉嚨沙啞的青春歲月嗎?讓這些珍貴的照片帶我們走進回憶的長廊…</h6>
     </div>
     <img class="col s4" src="static/img/banner.png" width="20%">
@@ -30,13 +31,25 @@
   <div class="col s12">
     <select>
       <option value="" disabled selected>年份選擇</option>
-      <option value="1">www</option>
-      <option value="2">WWW</option>
-      <option value="3">WWW</option>
-      <option value="4">WWW</option>
-      <option value="5">WWW</option>
-      <option value="6">WWW</option>
-      <option value="7">WWW</option>
+      <option value="1969">1969</option>
+      <option value="1970">1970</option>
+      <option value="1971">1971</option>
+      <option value="1972">1972</option>
+      <option value="1973">1973</option>
+      <option value="1975">1975</option>
+      <option value="1976">1976</option>
+      <option value="1977">1977</option>
+      <option value="1978">1978</option>
+      <option value="1981">1981</option>
+      <option value="1982">1982</option>
+      <option value="1988">1988</option>
+      <option value="1989">1989</option>
+      <option value="1990">1990</option>
+      <option value="1992">1992</option>
+      <option value="1999">1999</option>
+      <option value="2007">2007</option>
+      <option value="2008">2008</option>
+      <option value="2012">2009</option>
     </select>
   </div>
 </div>
@@ -51,7 +64,7 @@
         <div class="card">
           <div class="card-image">
             <a href="#60_70" class="album">
-              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <img src="https://lh4.googleusercontent.com/-UEXecfB8s04/VN6vJ7vWIPI/AAAAAAAAAPA/DOcWX_FJL5s/s400/306-1970-003-003.jpg">
               <span class="card-title pink-text text-accent-4">'60 & 70</span>
             </a>
           </div>
@@ -62,7 +75,7 @@
         <div class="card">
           <div class="card-image">
             <a href="#80" class="album">
-              <img src="https://lh6.googleusercontent.com/-HvayzMFvVmI/VNRNQJ7JTvI/AAAAAAAAABE/HOjMOv2a2DE/23919_79f6d1a5.jpg">
+              <img src="https://lh4.googleusercontent.com/-4PcgO7wSV5Q/VN7mcnuvn1I/AAAAAAAAAnU/FZ11j5j9vEs/s640/306-1989-003-431.jpg">
               <span class="card-title pink-text text-accent-4">'80</span>
             </a>
           </div>
@@ -103,60 +116,61 @@
       </div>
     </div>
   </div>
+  <!-- Result -->
+  <div id="mgallery" class="col s12 center">
+    <h3 class="pink-text text-accent-5" id="mgtitle"></h3>
+    <div id="output"></div>
+  </div>
 </div>
 
   <div id="years" class="row">
     <div id="60_70" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'60 & 70年</h4></li>
-        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+        <a href="#1969" class="collection-item purple-text text-lighten-2">1969</a>
+        <a href="#1970" class="collection-item purple-text text-lighten-2">1970</a>
+        <a href="#1971" class="collection-item purple-text text-lighten-2">1971</a>
+        <a href="#1972" class="collection-item purple-text text-lighten-2">1972</a>
+        <a href="#1973" class="collection-item purple-text text-lighten-2">1973</a>
+        <a href="#1975" class="collection-item purple-text text-lighten-2">1975</a>
+        <a href="#1976" class="collection-item purple-text text-lighten-2">1976</a>
+        <a href="#1977" class="collection-item purple-text text-lighten-2">1977</a>
+        <a href="#1978" class="collection-item purple-text text-lighten-2">1978</a>
       </ul>
     </div>
     <div id="80" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'80年</h4></li>
-        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+        <a href="#1981" class="collection-item purple-text text-lighten-2">1981</a>
+        <a href="#1982" class="collection-item purple-text text-lighten-2">1982</a>
+        <a href="#1988" class="collection-item purple-text text-lighten-2">1988</a>
+        <a href="#1989" class="collection-item purple-text text-lighten-2">1989</a>
       </ul>
     </div>
     <div id="90" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'90年</h4></li>
-        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+        <a href="#1990" class="collection-item purple-text text-lighten-2">1990</a>
+        <a href="#1992" class="collection-item purple-text text-lighten-2">1992</a>
+        <a href="#1999" class="collection-item purple-text text-lighten-2">1999</a>
       </ul>
     </div>
     <div id="00" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'00年</h4></li>
-        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+        <a href="#2007" class="collection-item purple-text text-lighten-2">2007</a>
+        <a href="#2008" class="collection-item purple-text text-lighten-2">2008</a>
+        <a href="#2009" class="collection-item purple-text text-lighten-2">2009</a>
       </ul>
     </div>
     <div id="10" class="col s12 offset-m2 m8 hidden">
       <ul class="collection with-header">
         <li class="collection-header purple-text"><h4>'10年</h4></li>
-        <a href="#!" class="collection-item purple-text text-lighten-2">60</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">65</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">68</a>
-        <a href="#!" class="collection-item purple-text text-lighten-2">74</a>
+        <a href="#2012" class="collection-item purple-text text-lighten-2">2012</a>
       </ul>
     </div>
   </div>
-  <!-- Result -->
-  <div id="mgallery" class="col s12 center">
-    <h3 class="pink-text text-accent-5">照片集</h3>
-    <div id="output"></div>
-  </div>
+
 
 </div>
 
@@ -174,23 +188,37 @@
 
 <script>
 $(function(){
-
-  var albums = [
-    '1',
-    '2',
-    '3'
-  ]
+  var constlink = 'https://picasaweb.google.com/data/feed/base/user/103449317412346247800/albumid/'
+  var albums = {
+    '1969': '6115496034485822385',
+    '1970': '6115502173943410689',
+    '1971': '6115503317310606241',
+    '1972': '6115504235220673841',
+    '1973': '6115506182180003137',
+    '1975': '6115506928939082833',
+    '1976': '6115510751956878289',
+    '1977': '6115511054288229457',
+    '1978': '6115511493447131809',
+    '1981': '6115518709885777409',
+    '1982': '6115524022506529521',
+    '1988': '6115533013087571905',
+    '1989': '6115560878644093121',
+    '1990': '6115598401609043777',
+    '1992': '6115600686302924257',
+    '1999': '6115603458678277489',
+    '2007': '6115603405518471441',
+    '2008': '6115607633801282337',
+    '2009': '6115610683922994145',
+  }
   $('select').material_select();
   $('select').change(function () {
     var str = $("select option:selected").text();
     var val = $("select option:selected").attr('value');
-    console.log('Choose ' + str + ' displays album year#' + val);
-    displayphoto(val);
+    displayphoto(albums[val], val);
   });
   $('.collection-item').click(function () {
-    var val = $(this).attr('href');
-    console.log('Displays album year#' + val);
-    displayphoto(val);
+    var val = $(this).attr('href').slice(1, 5);
+    displayphoto(albums[val], val);
   });
   $('.album').click(function(){
     target = $(this).attr('href');
@@ -222,8 +250,9 @@ $(function(){
     return false;
   });
 
-  function displayphoto(year_num) {
-    getalbum(albums['year_num']);
+  function displayphoto(albumid, val) {
+    $('#mgtitle').text(val + '梅竹照片集')
+    getalbum(constlink + albumid, val);
     $('html, body').animate({
         scrollTop: $("#mgallery").offset().top
     }, 2000);
@@ -246,7 +275,7 @@ $(function(){
             });
             $('#output').empty();
             $('#template').tmpl({
-                photos: photos
+                photos: photos,
             }).appendTo('#output');
         },
         error: function(){
@@ -258,6 +287,7 @@ $(function(){
 <script>
   var $container = $('#_container');
   $container.imagesLoaded( function() {
+    // $('.materialboxed').materialbox();
     $container.masonry({
       itemSelector: '.item',
       columWidth: 200,

@@ -36,9 +36,11 @@ cache = Cache(app)
 def home():
     # may cause pjax error in QUERY ???!!
     messages = MessageModel.query().order(-MessageModel.timestamp).fetch(5)
+    counts, counter = get_heading_department()
     return pjax('main_page.html',
                 messages=messages,
-                counts=get_heading_department())
+                counts=counts,
+                counter=counter)
 
 
 def list_messages():
@@ -126,14 +128,15 @@ def morepage():
 def get_heading_department(num=10):
     
     counts = CounterDB.query()
-    result = []
+    result, counter = [], 0
     for c in counts:
-        key = u'%s' % c.key.id().decode('utf8')
+        key, val = u'%s' % c.key.id().decode('utf8'), c.val
+        counter += val
         if key in normalize:
-            val = c.val * 100 / normalize[key]
+            val = val * 100 / normalize[key]
             if val > 0: result.append((val, key))
     result = sorted(result, key=operator.itemgetter(0), reverse=True)
-    return result[:10]
+    return result[:10], counter
     
 
 @cache.cached(timeout=600) #, key_prefix='depart_comments')
