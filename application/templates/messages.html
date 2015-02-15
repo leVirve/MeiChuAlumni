@@ -25,27 +25,26 @@
 
 
   </div>
-  <div class="col s12 offset-m2 m8">
-    <ul class="collapsible" data-collapsible="accordion">
-      <li class="collection-header" style="">
-        <div id="n" class="collapsible-header">
-        {% if messages %}
-        {{ messages[0].department }} {{ messages[0].grade }}級
-        {% else %}
-        查詢結果
-        {% endif %}
-        </div>
-        <div class="collapsible-body" style="background:#ddd">
-          <table><tbody id="column">
-            {% for m in messages %}
-            <tr><td>{{ m.description|e }} | {{ m.grade }} 級</td></tr>
-            {% endfor %}
-          </tbody></table>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <table class="col s12 offset-m2 m8 striped">
+    <thead>
+      <tr>
+          <th>
+          {% if messages %}
+          {{ messages[0].department }} {{ messages[0].grade }}級
+          {% elif query %}
+          目前尚無留言喔～
+          {% endif %}
+          </th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for m in messages %}
+    <tr><td>{{ m.description|e }} by {{ m.name|e }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
 </div>
+
 
 
 <script>

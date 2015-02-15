@@ -3,7 +3,7 @@
   {% for message in messages %}
   <li class="card-panel grey lighten-5 z-depth-1" style="margin:0.1rem 0px 0.1rem">
     <div class="row valign-wrapper">
-      <time class="col s4 deep-orange-text" style="font-size:12px;">
+      <time class="col s3 deep-orange-text" style="font-size:12px;">
         <script>
         var options1 = { month: "short", day: "numeric"},
             options2 = { hour: "2-digit", minute: "2-digit" },
@@ -13,14 +13,12 @@
         </script>
       </time>
       <div class="cbp_tmicon"></div>
-      <div class="col s8">
+      <div class="col s9">
         <span class="grey-text text-darken-3">
             <p>{{ message.description|e }}</p>
         </span>
+        <h6 style="font-size:0.9em">{{ message.department|e }}{{ message.grade }}級</h6>
       </div>
-    </div>
-    <div class="row">
-      <h6 class="center-align" style="font-size:0.9em">{{ message.department|e }}{{ message.grade }}級</h6>
     </div>
   </li>
   {% endfor %}

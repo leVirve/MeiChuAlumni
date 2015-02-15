@@ -1,8 +1,18 @@
 <style media="screen">
 .hidden { display: none; }
+#output {
+  column-count: 3;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  -webkit-column-gap: 10px;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  width:100%;
+  margin:0 auto;
+}
 .item{
-  box-shadow: 4px 6px 17px 0px rgba(111, 185, 173, 0.75);;
-  max-width: 25%;
+  box-shadow: 4px 6px 17px 0px rgba(111, 185, 173, 0.75);
+  width: 100%;
 }
 .card-image .album span {
   font-size: 3em;
@@ -18,43 +28,44 @@
 #ages .card img { height: 250px; }
 </style>
 
-<div class="container row" style="padding-top:20px;">
-  <div style="row">
-    <div class="col s8">
-      <h3 class="pink-text text-accent-5" style="font-family:'標楷體' !important">梅竹回憶</h3>
-      <h6 class="pink-text text-accent-2" style="font-family:'標楷體' !important">還記得那加油到喉嚨沙啞的青春歲月嗎?讓這些珍貴的照片帶我們走進回憶的長廊…</h6>
+<div style="padding-top:20px;">
+  <div class="row">
+    <div class="col offset-m1 m10 row">
+      <div class="col s9">
+        <h3 class="pink-text text-accent-5" style="font-family:'標楷體' !important">梅竹回憶</h3>
+        <h6 class="pink-text text-accent-2" style="font-family:'標楷體' !important">還記得那加油到喉嚨沙啞的青春歲月嗎?讓這些珍貴的照片帶我們走進回憶的長廊…</h6>
+      </div>
+      <img class="col s3 right" src="static/img/banner.png" width="30%">
+      <div class="col offset-m1 m10">
+        <select>
+          <option value="" disabled selected>年份選擇</option>
+          <option value="1969">1969</option>
+          <option value="1970">1970</option>
+          <option value="1971">1971</option>
+          <option value="1972">1972</option>
+          <option value="1973">1973</option>
+          <option value="1975">1975</option>
+          <option value="1976">1976</option>
+          <option value="1977">1977</option>
+          <option value="1978">1978</option>
+          <option value="1981">1981</option>
+          <option value="1982">1982</option>
+          <option value="1988">1988</option>
+          <option value="1989">1989</option>
+          <option value="1990">1990</option>
+          <option value="1992">1992</option>
+          <option value="1999">1999</option>
+          <option value="2002">2002</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2014">2014</option>
+        </select>
+      </div>
     </div>
-    <img class="col s4" src="static/img/banner.png" width="20%">
-  </div>
-
-  <div class="col s12">
-    <select>
-      <option value="" disabled selected>年份選擇</option>
-      <option value="1969">1969</option>
-      <option value="1970">1970</option>
-      <option value="1971">1971</option>
-      <option value="1972">1972</option>
-      <option value="1973">1973</option>
-      <option value="1975">1975</option>
-      <option value="1976">1976</option>
-      <option value="1977">1977</option>
-      <option value="1978">1978</option>
-      <option value="1981">1981</option>
-      <option value="1982">1982</option>
-      <option value="1988">1988</option>
-      <option value="1989">1989</option>
-      <option value="1990">1990</option>
-      <option value="1992">1992</option>
-      <option value="1999">1999</option>
-      <option value="2002">2002</option>
-      <option value="2007">2007</option>
-      <option value="2008">2008</option>
-      <option value="2009">2009</option>
-      <option value="2010">2010</option>
-      <option value="2011">2011</option>
-      <option value="2012">2012</option>
-      <option value="2014">2014</option>
-    </select>
   </div>
 </div>
 
@@ -264,6 +275,8 @@ $(function(){
     return false;
   });
   $('#prev').click(function(){
+    $('#mgtitle').text('');
+    $('#output').empty();
     target = $(this).attr('databt');
     $(target).addClass('hidden');
     $('#prev').addClass('hidden');
@@ -279,7 +292,7 @@ $(function(){
   });
 
   function displayphoto(albumid, val) {
-    $('#mgtitle').text(val + '梅竹照片集')
+    $('#mgtitle').text(val + '梅竹照片集');
     getalbum(constlink + albumid, val);
     $('html, body').animate({
         scrollTop: $("#mgallery").offset().top
@@ -305,14 +318,6 @@ $(function(){
             $('#template').tmpl({
                 photos: photos,
             }).appendTo('#output');
-            var $container = $('#_container');
-            $container.imagesLoaded( function() {
-              $container.masonry({
-                itemSelector: '.item',
-                columWidth: 200,
-                isAnimated: true
-              });
-            });
         },
         error: function(){
         }

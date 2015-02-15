@@ -17,7 +17,7 @@ from .models import MessageModel
 import secret_keys
 
 departments = [
-u"人人文社會學系人社院學士班",
+u"人文社會學系人社院學士班",
 u"工程與系統科學系",
 u"工業工程與工程管理學系",
 u"工業工程與工程管理學系工工組",

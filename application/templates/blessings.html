@@ -759,7 +759,10 @@
           });
         }
         $('#somewhere').append(b);
-      }, 'json');
+      }, 'json').fail(function() {
+        alert('也許驗證碼錯誤了，請檢查資料重新填一次');
+        location.reload(true);
+      });
       return false;
     });
     for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};

@@ -21,7 +21,7 @@ function processChart(raw) {
     var COLORS = ["#46BFBD","#43B4DE","#FDB45C","#E4BF33","#949FB1","#4D5360","#46BFBD","#43B4DE","#FDB45C","#E4BF33","#949FB1","#4D5360"],
         l = [], d = [];
     for (var i = choosen.length - 1; i >= 0 ;i--) {
-      d.push(Math.round(choosen[i].value * 100) / 100);
+      d.push(Math.round(choosen[i].value * 10) / 10);
       l.push(choosen[i].label);
     };
     var data = {
@@ -43,6 +43,7 @@ function processChart(raw) {
           scaleFontSize: 16,
           inGraphDataShow : true,
           graphTitleFontFamily: '微軟正黑體',
+          inGraphDataTmpl : "<%=v3+'%'%>",
         },
         ctx = document.getElementById("chartpie").getContext("2d");
     raw.sort(function(a,b){return b.value-a.value});

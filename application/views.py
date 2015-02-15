@@ -57,7 +57,8 @@ def more_messages():
     messages = MessageModel.query(ndb.AND(MessageModel.department==department, MessageModel.grade==grade)).order(-MessageModel.timestamp).fetch(30)
     return pjax('messages.html',
                 messages=messages,
-                form=MessageForm())
+                form=MessageForm(),
+                query=1)
 
 
 def new_message():
@@ -179,11 +180,15 @@ def get_raffle_list():
     """ Get the list of user id and shared state for raffle """
     if request.method == "POST":
         candidates = get_heading_department_none_cached(3)
+        result = {}
+        app.logger.debug(candidates)
         for candidate in candidates:
             department, grade = candidate[1][:-2], candidate[1][-2:]
-            users = User.query()
+            users = User.query(ndb.AND(User.department==department, User.grade==grade))
             data = [{'shared': p.shared, 'id': p.key.id() } for p in users]
-        return jsonify(rafflelist=data)
+            result[candidate] = data
+            app.log.debug(data)
+        return jsonify(rafflelist=result)
     return render_template('admin.html')
 
 
