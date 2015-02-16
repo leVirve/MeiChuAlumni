@@ -736,10 +736,34 @@
 <script src="/static/js/materialize.min.js"></script>
 <script>
   $(document).ready(function(){
+    function init() {
+        for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
+        for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
+        for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
+        $('select').material_select();
+        $('.collapsible').collapsible({
+          accordion : false
+        });
+        console.log('Init');
+        if (sessionStorage["name"]) $('#name').val(sessionStorage["name"]);
+        if (sessionStorage["phone"]) $('#phone').val(sessionStorage["phone"]);
+        if (sessionStorage["grade"]) $('#grade').get(0).selectedIndex = sessionStorage["grade"];
+        if (sessionStorage["mail"]) $('#mail').val(sessionStorage["mail"]);
+        if (sessionStorage["account"]) $('#account').val(sessionStorage["account"]);
+        if (sessionStorage["description"]) $('#description').val(sessionStorage["description"]);
+    }
+    init();
+    $('.stored').change(function () {
+      sessionStorage[$(this).attr('name')] = $(this).val();
+    });
+    $('.stored_s').change(function () {
+      sessionStorage[$(this).attr('name')] = $(this).get(0).selectedIndex;
+    });
     $('#new-message-form').submit(function(){
       $.post($(this).attr('action'), $(this).serialize(), function(d) {
         toast('資料送出!', 4000);
         $('#new-message-form').empty();
+        sessionStorage.clear();
         var b = document.createElement('button');
         b.innerHTML = '分享';
         b.className = 'btn waves-effect waves-light right';
@@ -764,13 +788,6 @@
         location.reload(true);
       });
       return false;
-    });
-    for (var i = 60; i <= 99; i++) {$('select[name="grade"]').append(new Option(i, i));};
-    for (var i = 0; i <= 9; i++) {$('select[name="grade"]').append(new Option('0'+i, '0'+i));};
-    for (var i = 10; i <= 18; i++) {$('select[name="grade"]').append(new Option(i, i));};
-    $('select').material_select();
-    $('.collapsible').collapsible({
-      accordion : false
     });
   });
 </script>

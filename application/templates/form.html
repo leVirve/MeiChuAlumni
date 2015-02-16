@@ -5,17 +5,17 @@
       <div class="card-content"><span class="card-title pink-text text-accent-4">馬上留下對梅竹賽的回憶/祝福，就有機會參加抽獎哦！</span></div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="name" type="text" class="validate" name="name">
+          <input id="name" type="text" class="validate stored" name="name">
           <label for="name">姓名</label>
         </div>
         <div class="input-field col s6">
-          <input id="phone" type="text" class="validate" name="phone">
+          <input id="phone" type="text" class="validate stored" name="phone">
           <label for="phone">電話</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s8">
-          <select class="_browser-default" name="department">
+          <select id="department" class="stored_s" name="department">
             <option value="" disabled selected>系別</option>
             {% for subfield in form.department %}
             {{ subfield }}
@@ -23,26 +23,26 @@
           </select>
         </div>
         <div class="input-field col s4">
-          <select class="browser-default" name="grade">
+          <select id="grade" class="browser-default stored_s" name="grade">
             <option value="" disabled selected>系級</option>
           </select>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="mail">
+          <input id="mail" type="email" class="validate stored" name="mail">
           <label for="email">聯絡信箱</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="account" type="text" class="validate" name="account">
+          <input id="account" type="text" class="validate stored" name="account">
           <label for="account">FB/Line 帳號 (選填)</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <textarea class="materialize-textarea" name="description"></textarea>
+          <textarea id="description" class="materialize-textarea stored" name="description"></textarea>
           <label>寫寫你對梅竹賽的回憶/祝福</label>
         </div>
       </div>
